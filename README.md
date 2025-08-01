@@ -2,21 +2,38 @@
 
 **Created by GreatTomFox & Sora collaboration project**
 
+> [!WARNING]  
+> **🚧 EARLY ALPHA - WORK IN PROGRESS 🚧**
+> 
+> This mod is currently in **early development stage**. Only basic HUD detection and UI framework are implemented.
+> 
+> **❌ NOT YET FUNCTIONAL:**
+> - Actual HUD element repositioning
+> - Real drag & drop of HUD elements  
+> - Position saving/loading
+> 
+> **✅ CURRENTLY WORKING:**
+> - HUD element detection (12 elements)
+> - Edit mode toggle (H key)
+> - Visual preview with green outlines
+> 
+> **Expected completion:** Phase 3 implementation (Mixin-based HUD control)
+
 A powerful mod that allows universal positioning of HUD elements from vanilla Minecraft and other mods, inspired by Xaero's Minimap drag-and-drop system.
 
 ## 🌟 Features
 
-### ✨ Universal HUD Control
-- **Detect and manage HUD elements** from vanilla Minecraft and loaded mods
-- **Drag & Drop positioning** similar to Xaero's Minimap (future feature)
-- **Real-time preview** of HUD positions during editing
-- **Automatic mod detection** for TerraFirmaCraft, JEI, Jade, and more
+### ✅ Currently Implemented (Phase 1-2)
+- **Detect and manage HUD elements** from vanilla Minecraft and loaded mods ✅
+- **Press H key** to toggle HUD edit mode ✅
+- **Visual outlines** show editable HUD elements ✅
+- **Automatic mod detection** for TerraFirmaCraft, JEI, Jade, and more ✅
 
-### 🎮 Easy to Use
-- **Press H key** to toggle HUD edit mode
-- **Visual outlines** show editable HUD elements
-- **Intuitive interface** with clear instructions
-- **Modpack friendly** - no source modifications needed
+### 🚧 Planned Features (Phase 3+)
+- **Drag & Drop positioning** similar to Xaero's Minimap ⏳
+- **Real-time preview** of HUD positions during editing ⏳
+- **Position saving/loading** between game sessions ⏳
+- **Intuitive interface** with full mouse interaction ⏳
 
 ### 🌍 Supported HUD Elements
 
@@ -37,23 +54,33 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 ## 🚀 Installation
 
-1. Download the latest release from [Releases](../../releases)
-2. Place the `.jar` file in your `mods/` folder
-3. Launch Minecraft with Forge 1.20.1
-4. Press **H** key in-game to start editing HUD positions!
+> [!WARNING]
+> **No releases available yet!** This mod is in early development.
 
-## 🎯 Usage
+**For developers/testers only:**
+1. Clone this repository
+2. Build with `./gradlew build`  
+3. Place the generated `.jar` file in your `mods/` folder
+4. Launch Minecraft with Forge 1.20.1
+5. Press **H** key in-game to see HUD detection (visual preview only)
 
-### Basic Usage
+## 🎯 Current Usage (Alpha)
+
+### What Works Now
 1. **Enter Edit Mode**: Press `H` key
-2. **See HUD Elements**: Green outlines show draggable elements
-3. **Position Elements**: Click and drag to new positions (coming soon)
+2. **See HUD Elements**: Green outlines show detected elements (12 total)
+3. **Visual Preview**: See which HUD elements are detected
 4. **Exit Edit Mode**: Press `H` key again
 
-### Advanced Features
-- **Mod Detection**: Automatically discovers HUD elements from loaded mods
-- **Configuration**: Positions are saved and restored between sessions
-- **Compatibility**: Works alongside existing HUD mods
+### What Doesn't Work Yet
+- ❌ Actual dragging/repositioning of HUD elements
+- ❌ Position saving between sessions  
+- ❌ Real HUD movement (only visual preview)
+
+### Advanced Features (Alpha Status)
+- ✅ **Mod Detection**: Automatically discovers HUD elements from loaded mods
+- ❌ **Configuration**: Position saving/loading (not implemented yet)
+- ✅ **Compatibility**: Works alongside existing HUD mods (detection only)
 
 ## 🔧 Development
 
