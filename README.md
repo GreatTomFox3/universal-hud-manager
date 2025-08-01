@@ -5,7 +5,7 @@
 > [!WARNING]  
 > **🚧 EARLY ALPHA - WORK IN PROGRESS 🚧**
 > 
-> This mod is currently in **early development stage**. Only basic HUD detection and UI framework are implemented.
+> This mod is currently in **early development stage**. Only basic UI framework and visual preview system are implemented.
 > 
 > **❌ NOT YET FUNCTIONAL:**
 > - Actual HUD element repositioning
@@ -13,44 +13,43 @@
 > - Position saving/loading
 > 
 > **✅ CURRENTLY WORKING:**
-> - HUD element detection (12 elements)
 > - Edit mode toggle (H key)
-> - Visual preview with green outlines
+> - Visual preview with green outlines (placeholder system)
+> - Basic UI framework and screen management
 > 
 > **Expected completion:** Phase 3 implementation (Mixin-based HUD control)
 
-A powerful mod that allows universal positioning of HUD elements from vanilla Minecraft and other mods, inspired by Xaero's Minimap drag-and-drop system.
+A powerful mod that allows universal positioning of HUD elements from vanilla Minecraft and other mods, inspired by Giacomo's HUD Overlays Configurator and Xaero's Minimap drag-and-drop functionality.
 
 ## 🌟 Features
 
 ### ✅ Currently Implemented (Phase 1-2)
-- **Detect and manage HUD elements** from vanilla Minecraft and loaded mods ✅
 - **Press H key** to toggle HUD edit mode ✅
-- **Visual outlines** show editable HUD elements ✅
-- **Automatic mod detection** for TerraFirmaCraft, JEI, Jade, and more ✅
+- **Basic UI framework** with screen management ✅
+- **Visual outlines** placeholder system (green boxes) ✅
 
 ### 🚧 Planned Features (Phase 3+)
+- **HUD element detection** from vanilla Minecraft and loaded mods ⏳
+- **Automatic mod detection** for TerraFirmaCraft, JEI, Jade, and more ⏳  
 - **Drag & Drop positioning** similar to Xaero's Minimap ⏳
-- **Real-time preview** of HUD positions during editing ⏳
+- **Real-time preview** of actual HUD positions during editing ⏳
 - **Position saving/loading** between game sessions ⏳
 - **Intuitive interface** with full mouse interaction ⏳
 
 ### 🌍 Supported HUD Elements
 
-#### Vanilla Minecraft
+#### Vanilla Minecraft (Planned)
 - Health Bar
 - Food Bar  
 - Experience Bar
 - Hotbar
 - Crosshair
 - Chat
-- Debug Info (F3)
 
-#### Mod Support
+#### Mod Support (Planned)
 - **TerraFirmaCraft**: Thirst Bar, Temperature Display
-- **JEI**: Item List, Recipe GUI
-- **Jade/WAILA**: Block Info Tooltips
-- **Extensible**: Easy to add support for more mods
+- **Jade/WAILA**: Block Info Tooltips (if possible to override mod's own config)
+- **Automatic detection**: Support will be added automatically as mods are detected
 
 ## 🚀 Installation
 
@@ -68,8 +67,8 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 ### What Works Now
 1. **Enter Edit Mode**: Press `H` key
-2. **See HUD Elements**: Green outlines show detected elements (12 total)
-3. **Visual Preview**: See which HUD elements are detected
+2. **Visual Placeholder System**: Green outlines appear as placeholders (not real HUD detection)
+3. **Basic Drag Interface**: Placeholder green boxes can be dragged around (demonstration only)
 4. **Exit Edit Mode**: Press `H` key again
 
 ### What Doesn't Work Yet
@@ -78,9 +77,10 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - ❌ Real HUD movement (only visual preview)
 
 ### Advanced Features (Alpha Status)
-- ✅ **Mod Detection**: Automatically discovers HUD elements from loaded mods
+- ❌ **HUD Detection**: Real HUD element detection (not implemented yet)
+- ❌ **Mod Detection**: Automatic mod HUD discovery (not implemented yet)
 - ❌ **Configuration**: Position saving/loading (not implemented yet)
-- ✅ **Compatibility**: Works alongside existing HUD mods (detection only)
+- ✅ **Basic Framework**: UI foundation and screen management
 
 ## 🔧 Development
 
@@ -127,10 +127,12 @@ We welcome contributions! Please feel free to:
 
 ## 🙏 Acknowledgments
 
-- **Xaero's Minimap**: Inspiration for drag-and-drop HUD positioning
-- **Jade/WAILA**: Reference for HUD rendering techniques
-- **TerraFirmaCraft**: Target use case for mod-specific HUD elements
-- **Minecraft Forge**: Framework that makes this mod possible
+This project draws inspiration from existing mods and frameworks:
+
+- **Giacomo's HUD Overlays Configurator**: Primary inspiration for HUD management concept
+- **Xaero's Minimap**: Inspiration for drag-and-drop positioning interface
+- **TerraFirmaCraft**: Target use case demonstrating need for mod-specific HUD control
+- **Minecraft Forge**: Essential framework enabling mod development
 
 ## 📞 Support
 
