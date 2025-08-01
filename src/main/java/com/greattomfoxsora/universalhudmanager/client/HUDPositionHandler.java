@@ -1,8 +1,8 @@
-package com.tomonosora.universalhudmanager.client;
+package com.greattomfoxsora.universalhudmanager.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.tomonosora.universalhudmanager.core.HUDElement;
-import com.tomonosora.universalhudmanager.core.HUDRegistry;
+import com.greattomfoxsora.universalhudmanager.core.HUDElement;
+import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,7 +19,7 @@ import com.mojang.logging.LogUtils;
  * This class intercepts HUD rendering events and applies custom positioning
  * based on the Universal HUD Manager configuration.
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 @Mod.EventBusSubscriber(modid = "universalhudmanager", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class HUDPositionHandler {

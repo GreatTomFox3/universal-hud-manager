@@ -1,4 +1,4 @@
-package com.tomonosora.universalhudmanager.core;
+package com.greattomfoxsora.universalhudmanager.core;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Central registry for all HUD elements discovered and managed by Universal HUD Manager
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 public class HUDRegistry {
     private static final Logger LOGGER = LogUtils.getLogger();

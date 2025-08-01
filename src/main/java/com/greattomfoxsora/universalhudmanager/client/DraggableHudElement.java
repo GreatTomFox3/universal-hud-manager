@@ -1,7 +1,7 @@
-package com.tomonosora.universalhudmanager.client;
+package com.greattomfoxsora.universalhudmanager.client;
 
 import com.mojang.logging.LogUtils;
-import com.tomonosora.universalhudmanager.core.HUDElement;
+import com.greattomfoxsora.universalhudmanager.core.HUDElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -12,7 +12,7 @@ import org.slf4j.Logger;
  * ドラッグ可能なHUD要素ウィジェット
  * FirstAid modのGuiHoldButtonを参考に実装
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 public class DraggableHudElement extends AbstractWidget {
     private static final Logger LOGGER = LogUtils.getLogger();

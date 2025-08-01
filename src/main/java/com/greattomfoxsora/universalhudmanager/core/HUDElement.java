@@ -1,9 +1,9 @@
-package com.tomonosora.universalhudmanager.core;
+package com.greattomfoxsora.universalhudmanager.core;
 
 /**
  * Represents a HUD element that can be positioned and managed
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 public class HUDElement {
     private final String id;

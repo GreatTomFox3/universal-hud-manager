@@ -1,9 +1,9 @@
-package com.tomonosora.universalhudmanager.client;
+package com.greattomfoxsora.universalhudmanager.client;
 
 import com.mojang.logging.LogUtils;
-import com.tomonosora.universalhudmanager.UniversalHudManager;
-import com.tomonosora.universalhudmanager.core.HUDElement;
-import com.tomonosora.universalhudmanager.core.HUDRegistry;
+import com.greattomfoxsora.universalhudmanager.UniversalHudManager;
+import com.greattomfoxsora.universalhudmanager.core.HUDElement;
+import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +23,7 @@ import org.slf4j.Logger;
  * Universal HUD Manager のHUDオーバーレイ制御システム
  * TerraFirmaCraftのアプローチを参考にForge Eventsを使用
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 @Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HUDOverlayHandler {

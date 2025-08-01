@@ -1,6 +1,6 @@
 # Universal HUD Manager for Minecraft Forge 1.20.1
 
-**Created by Tomo & Sora collaboration project**
+**Created by GreatTomFox & Sora collaboration project**
 
 A powerful mod that allows universal positioning of HUD elements from vanilla Minecraft and other mods, inspired by Xaero's Minimap drag-and-drop system.
 
@@ -59,14 +59,14 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 ### Building from Source
 ```bash
-git clone https://github.com/TomoSora/UniversalHudManager.git
+git clone https://github.com/GreatTomFox3/universal-hud-manager.git
 cd UniversalHudManager/Forge1.20.1
 ./gradlew build
 ```
 
 ### Project Structure
 ```
-src/main/java/com/tomonosora/universalhudmanager/
+src/main/java/com/greattomfoxsora/universalhudmanager/
 ├── UniversalHudManager.java          # Main mod class
 ├── core/
 │   ├── HUDElement.java               # HUD element representation
@@ -117,5 +117,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ❤️ by Tomo & Sora**  
+**Made with ❤️ by GreatTomFox & Sora**  
 *Making HUD management universal, one element at a time.*

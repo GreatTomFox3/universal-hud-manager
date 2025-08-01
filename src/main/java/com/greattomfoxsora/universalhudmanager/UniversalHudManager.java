@@ -1,7 +1,7 @@
-package com.tomonosora.universalhudmanager;
+package com.greattomfoxsora.universalhudmanager;
 
 import com.mojang.logging.LogUtils;
-import com.tomonosora.universalhudmanager.core.HUDRegistry;
+import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,9 +17,9 @@ import org.slf4j.Logger;
  * A powerful mod that allows universal positioning of HUD elements from vanilla 
  * Minecraft and other mods, inspired by Xaero's Minimap drag-and-drop system.
  * 
- * Created by Tomo & Sora collaboration project.
+ * Created by GreatTomFox & Sora collaboration project.
  * 
- * @author Tomo (GreatTomFox)
+ * @author GreatTomFox
  * @author Sora (AI Assistant)
  * @version 1.0.0
  */
@@ -41,7 +41,7 @@ public class UniversalHudManager {
         MinecraftForge.EVENT_BUS.register(this);
         
         LOGGER.info("Universal HUD Manager initialized!");
-        LOGGER.info("Created by Tomo & Sora - Making HUD management universal!");
+        LOGGER.info("Created by GreatTomFox & Sora - Making HUD management universal!");
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {

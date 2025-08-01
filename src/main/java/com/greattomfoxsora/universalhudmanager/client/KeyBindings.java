@@ -1,4 +1,4 @@
-package com.tomonosora.universalhudmanager.client;
+package com.greattomfoxsora.universalhudmanager.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Key bindings for Universal HUD Manager
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 @Mod.EventBusSubscriber(modid = "universalhudmanager", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class KeyBindings {

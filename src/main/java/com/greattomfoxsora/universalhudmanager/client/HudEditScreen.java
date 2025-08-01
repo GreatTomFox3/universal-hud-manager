@@ -1,8 +1,8 @@
-package com.tomonosora.universalhudmanager.client;
+package com.greattomfoxsora.universalhudmanager.client;
 
 import com.mojang.logging.LogUtils;
-import com.tomonosora.universalhudmanager.core.HUDElement;
-import com.tomonosora.universalhudmanager.core.HUDRegistry;
+import com.greattomfoxsora.universalhudmanager.core.HUDElement;
+import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -16,7 +16,7 @@ import java.util.List;
  * HUD編集用スクリーン - ドラッグ&ドロップでHUD要素を配置
  * FirstAid modの実装を参考に作成
  * 
- * @author Tomo & Sora
+ * @author GreatTomFox & Sora
  */
 public class HudEditScreen extends Screen {
     private static final Logger LOGGER = LogUtils.getLogger();
