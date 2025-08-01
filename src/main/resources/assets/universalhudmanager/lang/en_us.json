@@ -1,0 +1,29 @@
+{
+  "key.categories.universalhudmanager": "Universal HUD Manager",
+  "key.universalhudmanager.toggle_edit_mode": "Toggle HUD Edit Mode",
+  
+  "screen.universalhudmanager.hud_edit": "HUD Edit Mode",
+  "screen.universalhudmanager.edit_hint": "Drag HUD elements to reposition them",
+  "screen.universalhudmanager.controls": "H: Exit Edit Mode | ESC: Save and Exit",
+  
+  "gui.universalhudmanager.edit_mode.title": "Universal HUD Manager - Edit Mode",
+  "gui.universalhudmanager.edit_mode.instructions": "Press H to exit edit mode • Drag HUD elements to reposition",
+  "gui.universalhudmanager.edit_mode.save": "Save Configuration",
+  "gui.universalhudmanager.edit_mode.reset": "Reset to Default",
+  
+  "hud.universalhudmanager.minecraft.health": "Health Bar",
+  "hud.universalhudmanager.minecraft.food": "Food Bar", 
+  "hud.universalhudmanager.minecraft.experience": "Experience Bar",
+  "hud.universalhudmanager.minecraft.hotbar": "Hotbar",
+  "hud.universalhudmanager.minecraft.crosshair": "Crosshair",
+  "hud.universalhudmanager.minecraft.chat": "Chat",
+  "hud.universalhudmanager.minecraft.debug": "Debug Info",
+  
+  "hud.universalhudmanager.tfc.thirst": "Thirst Bar",
+  "hud.universalhudmanager.tfc.temperature": "Temperature",
+  
+  "message.universalhudmanager.edit_mode.enabled": "HUD Edit Mode: ENABLED",
+  "message.universalhudmanager.edit_mode.disabled": "HUD Edit Mode: DISABLED",
+  "message.universalhudmanager.config_saved": "HUD configuration saved",
+  "message.universalhudmanager.config_reset": "HUD configuration reset to default"
+}

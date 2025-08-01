@@ -1,0 +1,29 @@
+{
+  "key.categories.universalhudmanager": "Universal HUD Manager",
+  "key.universalhudmanager.toggle_edit_mode": "HUD編集モード切り替え",
+  
+  "screen.universalhudmanager.hud_edit": "HUD編集モード",
+  "screen.universalhudmanager.edit_hint": "HUD要素をドラッグして移動してください",
+  "screen.universalhudmanager.controls": "H: 編集モード終了 | ESC: 保存して終了",
+  
+  "gui.universalhudmanager.edit_mode.title": "Universal HUD Manager - 編集モード",
+  "gui.universalhudmanager.edit_mode.instructions": "Hキーで編集モード終了 • HUD要素をドラッグして配置変更",
+  "gui.universalhudmanager.edit_mode.save": "設定を保存",
+  "gui.universalhudmanager.edit_mode.reset": "デフォルトに戻す",
+  
+  "hud.universalhudmanager.minecraft.health": "体力ゲージ",
+  "hud.universalhudmanager.minecraft.food": "空腹ゲージ", 
+  "hud.universalhudmanager.minecraft.experience": "経験値ゲージ",
+  "hud.universalhudmanager.minecraft.hotbar": "ホットバー",
+  "hud.universalhudmanager.minecraft.crosshair": "照準",
+  "hud.universalhudmanager.minecraft.chat": "チャット",
+  "hud.universalhudmanager.minecraft.debug": "デバッグ情報",
+  
+  "hud.universalhudmanager.tfc.thirst": "水分ゲージ",
+  "hud.universalhudmanager.tfc.temperature": "温度表示",
+  
+  "message.universalhudmanager.edit_mode.enabled": "HUD編集モード: 有効",
+  "message.universalhudmanager.edit_mode.disabled": "HUD編集モード: 無効",
+  "message.universalhudmanager.config_saved": "HUD設定を保存しました",
+  "message.universalhudmanager.config_reset": "HUD設定をデフォルトにリセットしました"
+}

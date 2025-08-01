@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+issueTrackerURL="https://github.com/TomoSora/UniversalHudManager/issues"
+
+[[mods]]
+modId="universalhudmanager"
+version="${file.jarVersion}"
+displayName="Universal HUD Manager"
+description='''
+A powerful mod that allows you to freely position HUD elements from vanilla Minecraft and other mods.
+Inspired by Xaero's Minimap drag-and-drop system for universal HUD management.
+Created by Tomo & Sora collaboration project.
+'''
+logoFile="logo.png"
+credits="Created by Tomo (GreatTomFox) & Sora (AI Assistant)"
+authors="Tomo, Sora"
+# Mixin configuration
+mixinConfigs=["universalhudmanager.mixins.json"]
+
+[[dependencies.universalhudmanager]]
+modId="forge"
+mandatory=true
+versionRange="[47.4.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.universalhudmanager]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
