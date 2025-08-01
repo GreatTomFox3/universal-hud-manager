@@ -98,10 +98,6 @@ We welcome contributions! Please feel free to:
 - Create pull requests for improvements
 - Add support for additional mods
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - **Xaero's Minimap**: Inspiration for drag-and-drop HUD positioning
