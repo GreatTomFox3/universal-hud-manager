@@ -30,7 +30,7 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 ### 🚧 Planned Features (Phase 3+)
 - **HUD element detection** from vanilla Minecraft and loaded mods ⏳
-- **Automatic mod detection** for TerraFirmaCraft, JEI, Jade, and more ⏳  
+- **Automatic mod detection** for other mods' HUD elements ⏳  
 - **Drag & Drop positioning** similar to Xaero's Minimap ⏳
 - **Real-time preview** of actual HUD positions during editing ⏳
 - **Position saving/loading** between game sessions ⏳
@@ -43,12 +43,11 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - Food Bar  
 - Experience Bar
 - Hotbar
-- Crosshair
+- Air/Oxygen Bar (underwater)
 - Chat
 
 #### Mod Support (Planned)
-- **TerraFirmaCraft**: Thirst Bar, Temperature Display
-- **Jade/WAILA**: Block Info Tooltips (if possible to override mod's own config)
+- **Jade/WAILA**: Block Info Tooltips (if technically feasible to override mod's own config)
 - **Automatic detection**: Support will be added automatically as mods are detected
 
 ## 🚀 Installation
@@ -127,12 +126,10 @@ We welcome contributions! Please feel free to:
 
 ## 🙏 Acknowledgments
 
-This project draws inspiration from existing mods and frameworks:
+This project draws inspiration from existing mods:
 
 - **Giacomo's HUD Overlays Configurator**: Primary inspiration for HUD management concept
 - **Xaero's Minimap**: Inspiration for drag-and-drop positioning interface
-- **TerraFirmaCraft**: Target use case demonstrating need for mod-specific HUD control
-- **Minecraft Forge**: Essential framework enabling mod development
 
 ## 📞 Support
 
