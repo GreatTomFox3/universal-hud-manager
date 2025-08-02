@@ -20,7 +20,6 @@
 > 
 > **🔮 FUTURE GOALS:**
 > - **H key real-time editing** - Press H to open edit GUI with drag & drop interface for instant HUD positioning
-> - **Intelligent position saving** - Drag positions automatically saved to config file as X,Y coordinates
 > - **Multi-mod HUD detection** - Automatic discovery of other mods' HUD elements
 > - **Performance optimization** - Remove debug logging overhead
 
@@ -40,7 +39,7 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - **Intelligent position saving** - Dragged positions automatically saved to config file as X,Y coordinates (no manual editing) ⏳
 - **Multi-mod HUD detection** - Automatic discovery and control of other mods' HUD elements ⏳
 - **Performance optimization** - Remove debug logging overhead, improve efficiency ⏳
-- **Chat positioning** - Add the 5th major HUD element (if chat can even be moved?) ⏳
+- **Chat positioning** - Add the 5th major HUD element ⏳
 - **Advanced conflict resolution** - Smart handling of overlapping systems ⏳
 
 ### 🌍 Supported HUD Elements
@@ -64,13 +63,12 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 **Installation Steps (Testers Only):**
 1. No releases available - build from source only
-2. `git clone https://github.com/GreatTomFox3/universal-hud-manager.git`
-3. `cd universal-hud-manager/Forge1.20.1 && ./gradlew build`
-4. Place the generated `.jar` file in your `mods/` folder
-5. Launch Minecraft with Forge 1.20.1
-6. **Known issues:** Debug logging may cause performance slowdown
-7. **Current limitation:** H key shows edit UI but doesn't control vanilla HUDs yet
-8. **Position control:** Edit `config/universalhudmanager-client.toml` manually for now
+2. Download and extract the source code, then run `./gradlew build`
+3. Place the generated `.jar` file in your `mods/` folder
+4. Launch Minecraft with Forge 1.20.1
+5. **Known issues:** Debug logging may cause performance slowdown
+6. **Current limitation:** H key shows edit UI but doesn't control vanilla HUDs yet
+7. **Position control:** Edit `config/universalhudmanager-client.toml` manually, or use Configured mod for in-game config editing
 
 ## 🎯 How to Use
 
@@ -79,7 +77,7 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 2. **Visual Feedback**: Edit screen appears (framework only)
 3. **⚠️ No Real Dragging**: HUD elements cannot be dragged yet
 4. **Manual Config**: Edit `config/universalhudmanager-client.toml` to change positions
-5. **Restart Required**: Changes require game restart to take effect
+5. **Restart/Reload**: Changes require game restart or reload (Vanilla HUD changes apply without restart, use Configured mod for in-game config editing)
 
 ### What Actually Works
 - **Experience Bar Enhancement**: Cleaner number rendering compared to vanilla's messy font
@@ -95,16 +93,10 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 ### Configuration (Manual Only)
 - **Config File**: `config/universalhudmanager-client.toml`
 - **Manual Editing Required**: Use text editor to change X,Y coordinates
-- **Restart Needed**: Changes apply only after restarting Minecraft
+- **Restart/Reload**: Changes apply after restart or reload (Configured mod allows in-game config editing)
 
 ## 🔧 Development
 
-### Building from Source
-```bash
-git clone https://github.com/GreatTomFox3/universal-hud-manager.git
-cd UniversalHudManager/Forge1.20.1
-./gradlew build
-```
 
 ### Project Structure
 ```
