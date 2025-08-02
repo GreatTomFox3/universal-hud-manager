@@ -2,6 +2,7 @@ package com.greattomfoxsora.universalhudmanager;
 
 import com.mojang.logging.LogUtils;
 import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
+import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,6 +33,9 @@ public class UniversalHudManager {
     public UniversalHudManager() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         
+        // Register configuration
+        HUDConfig.register();
+        
         // Register client setup event
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(this::doClientStuff);
@@ -41,6 +45,7 @@ public class UniversalHudManager {
         MinecraftForge.EVENT_BUS.register(this);
         
         LOGGER.info("Universal HUD Manager initialized!");
+        LOGGER.info("Config system registered - Vector2i positioning enabled!");
         LOGGER.info("Created by GreatTomFox & Sora - Making HUD management universal!");
     }
     

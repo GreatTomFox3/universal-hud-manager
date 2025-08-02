@@ -25,7 +25,8 @@ import org.slf4j.Logger;
  * 
  * @author GreatTomFox & Sora
  */
-@Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+// DISABLED: Replaced by ResourcePackCompatibleOverlays for Phase 3
+// @Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HUDOverlayHandler {
     private static final Logger LOGGER = LogUtils.getLogger();
     
@@ -37,7 +38,7 @@ public class HUDOverlayHandler {
     /**
      * カスタムHUDオーバーレイの登録
      */
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {
         // バニラヘルスバーの上にカスタムヘルスオーバーレイを登録
         event.registerAbove(VANILLA_HEALTH, 
@@ -60,10 +61,10 @@ public class HUDOverlayHandler {
     /**
      * バニラHUDの描画制御 - HUD Manager制御下の要素はキャンセル
      */
-    @Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT)
+    // @Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT)
     public static class RenderEvents {
         
-        @SubscribeEvent
+        // @SubscribeEvent
         public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Pre event) {
             final ResourceLocation overlayId = event.getOverlay().id();
             
