@@ -14,16 +14,15 @@
 > - Basic HUD overlay system
 > 
 > **⚠️ LIMITATIONS & KNOWN ISSUES:**
-> - **No real-time dragging** - positions must be set via config file manually
+> - **No real-time HUD editing** - H key shows edit UI but can't drag vanilla HUDs yet, positions must be set via config file manually
 > - **Performance impact** - debug logging causes some game slowdown  
-> - **Incomplete vanilla integration** - H key doesn't control vanilla HUDs yet
-> - **4/5 elements** - Chat positioning not implemented
+> - **4 out of 5 vanilla HUD elements** - Health/Food/Experience/Air implemented, Chat positioning not implemented (can chat even be moved?)
 > 
 > **🔮 FUTURE GOALS:**
-> - Real drag & drop interface
-> - Automatic position saving
-> - Multi-mod HUD detection
-> - Performance optimization
+> - **H key real-time editing** - Press H to open edit GUI with drag & drop interface for instant HUD positioning
+> - **Intelligent position saving** - Drag positions automatically saved to config file as X,Y coordinates
+> - **Multi-mod HUD detection** - Automatic discovery of other mods' HUD elements
+> - **Performance optimization** - Remove debug logging overhead
 
 A powerful mod that allows universal positioning of HUD elements from vanilla Minecraft and other mods, inspired by Giacomo's HUD Overlays Configurator and Xaero's Minimap drag-and-drop functionality.
 
@@ -37,12 +36,11 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - **Resource Pack partial support** - Works with some texture elements ✅
 
 ### 🔮 Planned Features (Development Goals)
-- **Real drag & drop interface** - Intuitive mouse-based positioning ⏳
-- **Vanilla HUD integration** - H key controlling actual vanilla elements ⏳
-- **Auto-saving positions** - Instant save without config file editing ⏳
-- **Multi-mod detection** - Automatic discovery of other mods' HUD elements ⏳
-- **Performance optimization** - Remove debug logging, improve efficiency ⏳
-- **Chat positioning** - Add the 5th major HUD element ⏳
+- **H key real-time editing** - Press H to open edit GUI where you can drag & drop vanilla HUD elements in real-time ⏳
+- **Intelligent position saving** - Dragged positions automatically saved to config file as X,Y coordinates (no manual editing) ⏳
+- **Multi-mod HUD detection** - Automatic discovery and control of other mods' HUD elements ⏳
+- **Performance optimization** - Remove debug logging overhead, improve efficiency ⏳
+- **Chat positioning** - Add the 5th major HUD element (if chat can even be moved?) ⏳
 - **Advanced conflict resolution** - Smart handling of overlapping systems ⏳
 
 ### 🌍 Supported HUD Elements
@@ -52,7 +50,7 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - **Food Bar** - Rendering system implemented, config-based positioning only ⚠️  
 - **Experience Bar** - Enhanced rendering with cleaner numbers (vanilla numbers are messy!) ✅
 - **Air/Oxygen Bar** - Rendering system implemented, config-based positioning only ⚠️
-- **Chat** - Not yet implemented ❌
+- **Chat** - Not yet implemented (can chat even be moved?) ❌
 
 #### Mod Support (🔮 Future Plans)
 - **Universal Architecture** - Planned automatic detection system ⏳
@@ -89,10 +87,9 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - **Basic Framework**: Edit mode UI foundation is implemented
 
 ### What Doesn't Work Yet
-- **❌ Real-time dragging**: H key doesn't enable actual HUD movement
-- **❌ Auto-saving**: No automatic position persistence 
+- **❌ Real-time HUD editing**: H key opens edit UI but can't actually drag vanilla HUDs yet
+- **❌ Intelligent saving**: No automatic position saving to config file (manual editing required)
 - **❌ Live preview**: Changes don't show until restart
-- **❌ Vanilla integration**: H key doesn't control vanilla HUDs
 - **❌ Performance**: Debug logging causes slowdown
 
 ### Configuration (Manual Only)
