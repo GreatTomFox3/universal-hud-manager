@@ -35,10 +35,7 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 - **Resource Pack partial support** - Works with some texture elements ✅
 
 ### 🔮 Planned Features (Development Goals)
-- **H key real-time editing** - Press H to open edit GUI where you can drag & drop vanilla HUD elements in real-time ⏳
 - **Intelligent position saving** - Dragged positions automatically saved to config file as X,Y coordinates (no manual editing) ⏳
-- **Multi-mod HUD detection** - Automatic discovery and control of other mods' HUD elements ⏳
-- **Performance optimization** - Remove debug logging overhead, improve efficiency ⏳
 - **Chat positioning** - Add the 5th major HUD element ⏳
 - **Advanced conflict resolution** - Smart handling of overlapping systems ⏳
 
@@ -72,23 +69,25 @@ A powerful mod that allows universal positioning of HUD elements from vanilla Mi
 
 ## 🎯 How to Use
 
-### Current Usage (Alpha Limitations)
-1. **Enter Edit Mode**: Press `H` key while in-game
-2. **Visual Feedback**: Edit screen appears (framework only)
-3. **⚠️ No Real Dragging**: HUD elements cannot be dragged yet
-4. **Manual Config**: Edit `config/universalhudmanager-client.toml` to change positions
-5. **Restart/Reload**: Changes require game restart or reload (Vanilla HUD changes apply without restart, use Configured mod for in-game config editing)
+### Current Usage (Config File Only)
+1. **Edit Config File**: Open `config/universalhudmanager-client.toml` with text editor
+2. **Change X,Y Coordinates**: Modify position values for desired HUD elements
+3. **Restart/Reload**: Changes require game restart or reload (Vanilla HUD changes apply without restart)
+4. **Alternative**: Use Configured mod for in-game config editing convenience
+
+### ⚠️ What Doesn't Work (Under Construction)
+- **H key functionality**: Press H shows edit UI but no actual HUD control yet
+- **Real-time dragging**: Cannot drag HUD elements in edit mode
+- **Live preview**: Config changes don't show until restart
 
 ### What Actually Works
 - **Experience Bar Enhancement**: Cleaner number rendering compared to vanilla's messy font
 - **Config-Based Positioning**: Manual position control via config file editing
 - **Basic Framework**: Edit mode UI foundation is implemented
 
-### What Doesn't Work Yet
-- **❌ Real-time HUD editing**: H key opens edit UI but can't actually drag vanilla HUDs yet
-- **❌ Intelligent saving**: No automatic position saving to config file (manual editing required)
-- **❌ Live preview**: Changes don't show until restart
-- **❌ Performance**: Debug logging causes slowdown
+### Performance Notes
+- **❌ Debug logging overhead**: Current build includes debug logging that causes some game slowdown
+- **🔧 Optimization planned**: Performance improvements scheduled for future releases
 
 ### Configuration (Manual Only)
 - **Config File**: `config/universalhudmanager-client.toml`
