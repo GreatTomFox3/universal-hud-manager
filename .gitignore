@@ -55,3 +55,9 @@ run/
 # Backup files
 *.bak
 *.backup
+
+# Internal work files (not for public repository)
+作業場/
+*作業記録*.md
+*README現実化*.md
+*GitHub統合*.md
