@@ -3,36 +3,36 @@
 **Created by GreatTomFox & Sora collaboration project**
 
 > [!NOTE]  
-> **🎯 PHASE 3 COMPLETE - VANILLA HUD MASTERY ACHIEVED 🎯**
+> **🚧 DEVELOPMENT VERSION - BASIC FUNCTIONALITY IMPLEMENTED 🚧**
 > 
-> Universal HUD Manager has achieved **complete Vanilla HUD control** with pixel-perfect positioning!
+> Universal HUD Manager provides basic positioning control for Vanilla HUD elements.
 > 
-> **✅ FULLY IMPLEMENTED:**
-> - **All 5 major Vanilla HUD elements** - Health, Food, Experience, Air, Hotbar with perfect positioning control
-> - **Horse HUD system** - Complete horse health and jump gauge integration
-> - **Armor bar positioning** - Dynamic positioning with absorption hearts support
-> - **Real-time position control** - 1-pixel precision adjustment via config file
-> - **Resource Pack full compatibility** - Works seamlessly with any texture pack
-> - **Edit mode framework** - Press H key to toggle visual editing interface
+> **✅ CURRENTLY WORKING:**
+> - **Main Vanilla HUD elements** - Health, Food, Experience, Air, Hotbar positioning via config file
+> - **Horse HUD elements** - Horse health and jump gauge rendering implemented
+> - **Armor bar** - Basic positioning with absorption hearts support
+> - **Config-based positioning** - 1-pixel precision adjustment via config file editing
+> - **Some Resource Pack support** - Tested with several texture packs, may not work with all
+> - **Edit mode UI** - H key shows edit interface (visual only, no actual editing yet)
 > 
-> **🌟 TECHNICAL ACHIEVEMENTS:**
-> - **IDE Environment Revolution** - Direct Minecraft source code analysis integration
-> - **Vanilla-perfect reproduction** - Pixel-accurate HUD rendering that matches or exceeds Vanilla quality
-> - **Advanced position management** - Sophisticated coordinate calculation system
-> - **Performance optimized** - Efficient rendering with minimal overhead
+> **⚠️ LIMITATIONS:**
+> - **Config file editing required** - No real-time drag & drop editing
+> - **Limited Resource Pack testing** - May not work with all texture modifications
+> - **No multi-mod HUD support** - Only Vanilla HUD elements currently supported
+> - **Alpha quality** - Expect bugs and issues during gameplay
 
-A powerful and comprehensive mod that provides complete control over all Vanilla Minecraft HUD elements with pixel-perfect positioning, inspired by professional HUD management systems.
+A mod that provides basic positioning control for Vanilla Minecraft HUD elements via config file editing, inspired by existing HUD management mods.
 
 ## 🌟 Features
 
-### ✅ Phase 3 Complete Implementation
-- **Complete Vanilla HUD control** - All 5 major HUD elements fully implemented ✅
-- **Pixel-perfect positioning** - 1-pixel precision adjustment capability ✅
-- **Horse riding integration** - Seamless horse health and jump gauge control ✅
-- **Armor bar dynamics** - Smart positioning with absorption hearts adaptation ✅
-- **Resource Pack mastery** - Full compatibility with any texture pack ✅
-- **Edit mode interface** - H key visual editing framework ✅
-- **Advanced coordinate system** - Sophisticated position calculation and management ✅
+### ✅ Currently Implemented
+- **Basic HUD positioning** - Main Vanilla HUD elements can be repositioned via config ✅
+- **Config-based control** - 1-pixel precision adjustment through file editing ✅
+- **Horse HUD rendering** - Horse health and jump gauge basic implementation ✅
+- **Armor bar positioning** - Basic positioning with absorption hearts consideration ✅
+- **Some Resource Pack support** - Works with tested texture packs (not all) ⚠️
+- **Edit mode UI framework** - H key shows interface (no actual editing functionality) ⚠️
+- **Position calculation system** - Basic coordinate management implemented ✅
 
 ### 🎯 Precision Control System
 - **1-pixel adjustment** - Fine-tune HUD positions with perfect precision
@@ -43,30 +43,30 @@ A powerful and comprehensive mod that provides complete control over all Vanilla
 
 ### 🌍 Supported HUD Elements
 
-#### Vanilla Minecraft (✅ Complete Implementation)
-- **Health Bar** - Full position control with armor integration ✅
-- **Food Bar** - Perfect Vanilla reproduction with position control ✅
-- **Experience Bar** - Enhanced rendering with independent bar/text positioning ✅
-- **Air/Oxygen Bar** - Complete underwater breathing gauge control ✅
-- **Hotbar** - Full hotbar positioning with item integration ✅
-- **Horse Health** - Dynamic horse health display with multi-row support ✅
-- **Horse Jump Gauge** - Real-time jump charging with space key detection ✅
-- **Armor Bar** - Smart positioning with absorption hearts compensation ✅
+#### Vanilla Minecraft (⚠️ Basic Implementation)
+- **Health Bar** - Basic position control implemented ✅
+- **Food Bar** - Basic positioning functionality ✅
+- **Experience Bar** - Position control with separate bar/text positioning ✅
+- **Air/Oxygen Bar** - Basic underwater gauge positioning ✅
+- **Hotbar** - Basic hotbar positioning ✅
+- **Horse Health** - Horse health display with multi-row rendering ✅
+- **Horse Jump Gauge** - Jump charging display with space key detection ✅
+- **Armor Bar** - Basic positioning with absorption hearts support ✅
 
-#### Advanced Features
-- **Resource Pack Integration** - Works with any icons.png/widgets.png customizations
-- **Multi-state HUD management** - Different HUD layouts for different game states
-- **Vanilla-accurate timing** - Perfect reproduction of Vanilla rendering order and timing
-- **Performance optimized** - Efficient rendering without gameplay impact
+#### Additional Features
+- **Resource Pack Integration** - Works with some icons.png/widgets.png customizations (limited testing)
+- **Game state awareness** - Different positioning for horse riding and underwater states
+- **Vanilla-compatible timing** - Attempts to match Vanilla rendering behavior
+- **Basic performance** - Minimal impact during normal gameplay (not extensively tested)
 
 ## 🚀 Installation
 
-**Stable Release Ready:**
-1. Download the latest release from [Releases](../../releases)
-2. Place the `.jar` file in your `mods/` folder
+**Development Build:**
+1. No stable releases yet - build from source only
+2. Place the generated `.jar` file in your `mods/` folder
 3. Launch Minecraft with Forge 1.20.1-47.3.0 or later
-4. **Performance**: Optimized for smooth gameplay without lag
-5. **Compatibility**: Works with modpacks and other HUD-related mods
+4. **Performance**: Basic optimization, may have some impact during gameplay
+5. **Compatibility**: Limited testing with other mods, use with caution
 
 **Build from Source:**
 ```bash
@@ -77,11 +77,11 @@ cd universal-hud-manager
 
 ## 🎯 How to Use
 
-### Real-time Position Control
-1. **Edit Mode**: Press `H` key to toggle visual edit mode
-2. **Configuration**: Edit `config/universalhudmanager-client.toml` for precise positioning
-3. **Live Updates**: Changes apply immediately without restart
-4. **Pixel Precision**: Adjust positions with 1-pixel accuracy
+### Config-based Position Control
+1. **Edit Mode**: Press `H` key to view edit interface (visual only, no editing functionality)
+2. **Configuration**: Edit `config/universalhudmanager-client.toml` manually for positioning
+3. **File-based Updates**: Config changes apply after game restart or reload
+4. **Pixel Precision**: Manual adjustment with 1-pixel accuracy through config editing
 
 ### Advanced Configuration
 - **Config File**: `config/universalhudmanager-client.toml`
@@ -89,11 +89,11 @@ cd universal-hud-manager
 - **Enable/Disable Control**: Individual HUD elements can be toggled on/off
 - **Vanilla Position Manager**: Automatic position calculation for perfect Vanilla integration
 
-### What Works Perfectly
-- **All HUD Elements**: Complete control over every major Vanilla HUD component
-- **Resource Pack Support**: Full compatibility with texture pack customizations
-- **Performance**: Smooth operation without gameplay impact
-- **Multi-state Support**: Different positioning for different game scenarios (horse riding, underwater, etc.)
+### What Currently Works
+- **Basic HUD Elements**: Position control for main Vanilla HUD components via config
+- **Some Resource Pack Support**: Works with tested texture packs (compatibility not guaranteed)
+- **Basic Performance**: Minimal impact during normal gameplay (limited testing)
+- **Multi-state Support**: Basic positioning for different game scenarios (horse riding, underwater, etc.)
 
 ### Configuration Examples
 ```toml
@@ -116,19 +116,19 @@ hotbar_enabled = true
 
 ### Technical Achievements
 
-#### IDE Environment Revolution
-Universal HUD Manager pioneered a revolutionary development approach using **IntelliJ IDEA environment integration** with Claude Code:
+#### IDE-Based Development
+Universal HUD Manager was developed using **IntelliJ IDEA environment** with Claude Code assistance:
 
-- **Direct Minecraft source access**: Real-time analysis of Minecraft's internal HUD rendering
-- **Mapping file analysis**: Accurate field name resolution (MCP ↔ SRG name conversion)
-- **Vanilla implementation reverse engineering**: Perfect reproduction of Minecraft's HUD algorithms
-- **Real-time debugging**: Live analysis of HUD positioning and rendering systems
+- **Minecraft source access**: Analysis of Minecraft's HUD rendering through IDE environment
+- **Mapping file reference**: Field name resolution using MCP ↔ SRG name mappings
+- **Vanilla implementation study**: Attempted reproduction of Minecraft's HUD behavior
+- **Development debugging**: Analysis of HUD positioning and rendering through IDE tools
 
-#### Advanced Architecture
-- **Vanilla Position Manager**: Sophisticated coordinate calculation system that perfectly replicates Minecraft's internal positioning
-- **Resource Pack Compatibility Layer**: Advanced rendering system that works with any texture modifications
-- **Multi-state HUD Management**: Intelligent handling of different game states (horse riding, underwater, combat, etc.)
-- **Performance Optimization**: Efficient rendering with minimal CPU/GPU overhead
+#### Current Architecture
+- **Vanilla Position Manager**: Coordinate calculation system that attempts to replicate Minecraft's positioning
+- **Resource Pack Compatibility**: Basic rendering system that works with some texture modifications
+- **Multi-state HUD Management**: Basic handling of different game states (horse riding, underwater, etc.)
+- **Performance Considerations**: Attempts to minimize rendering overhead (limited testing)
 
 ### Project Structure
 ```
@@ -149,18 +149,18 @@ src/main/java/com/greattomfoxsora/universalhudmanager/
 
 ## 🎨 Architecture Highlights
 
-### Core Innovations
-- **VanillaPositionManager**: Revolutionary coordinate system that perfectly replicates Minecraft's internal HUD positioning
-- **ResourcePackCompatibleOverlays**: Advanced rendering layer that seamlessly integrates with any texture pack
-- **IDE-Driven Development**: Breakthrough development methodology using direct Minecraft source analysis
-- **Pixel-Perfect Control**: 1-pixel precision positioning system with Vanilla-accurate timing
+### Core Components
+- **VanillaPositionManager**: Coordinate system that attempts to replicate Minecraft's HUD positioning
+- **ResourcePackCompatibleOverlays**: Rendering layer that integrates with some texture packs
+- **IDE-Assisted Development**: Development methodology using IDE environment for Minecraft analysis
+- **Precision Control**: 1-pixel positioning system through config file editing
 
 ### Design Philosophy
-- **Vanilla Excellence**: Perfect reproduction and enhancement of Minecraft's HUD systems
-- **Performance First**: Optimized rendering without gameplay impact
-- **Universal Compatibility**: Seamless integration with modpacks and texture packs
-- **Developer Transparency**: Open development process with detailed technical documentation
-- **Quality Assurance**: Rigorous testing and validation against Vanilla behavior
+- **Vanilla Compatibility**: Attempt to match Minecraft's HUD behavior where possible
+- **Performance Awareness**: Minimize rendering impact during gameplay
+- **Basic Compatibility**: Work with common modpacks and texture packs where tested
+- **Development Transparency**: Open development process with available technical documentation
+- **Iterative Development**: Gradual improvement and testing of functionality
 
 ### Development Milestones
 - **Phase 1**: HUD detection and basic framework ✅
@@ -170,17 +170,17 @@ src/main/java/com/greattomfoxsora/universalhudmanager/
 
 ## 🚀 Future Development
 
-### Planned Enhancements
-- **Multi-mod HUD support**: Automatic detection and control of other mods' HUD elements
-- **Advanced edit mode**: Real-time drag & drop positioning with visual feedback
-- **Preset system**: Save and load different HUD layout configurations
-- **GUI configuration**: In-game configuration interface for easy setup
+### Potential Future Enhancements
+- **Multi-mod HUD support**: Investigate detection and control of other mods' HUD elements
+- **Real-time edit mode**: Attempt to implement drag & drop positioning functionality
+- **Preset system**: Consider save and load different HUD layout configurations
+- **GUI configuration**: Explore in-game configuration interface options
 
-### Technical Roadmap
-- **API development**: Public API for other mod developers to integrate their HUD elements
-- **Performance profiling**: Further optimization for large modpack environments
-- **Advanced positioning**: Support for dynamic positioning based on game events
-- **Cross-platform support**: Fabric version consideration
+### Technical Considerations
+- **API exploration**: Investigate potential API for other mod developers
+- **Performance testing**: Further testing and optimization for various environments
+- **Enhanced positioning**: Explore dynamic positioning based on game events
+- **Platform support**: Consider Fabric version if development continues
 
 ## 🤝 Contributing
 
@@ -192,14 +192,14 @@ We welcome contributions from the community:
 - **Documentation**: Help improve documentation and guides
 - **Testing**: Test with different modpacks and texture packs
 
-## 🏆 Recognition
+## 🚧 Development Status
 
-This project represents a breakthrough in Minecraft HUD management:
+This project is an ongoing development effort:
 
-- **Technical Innovation**: First mod to achieve complete Vanilla HUD mastery with pixel-perfect control
-- **Development Methodology**: Revolutionary IDE-integrated development approach
-- **Community Impact**: Enabling unprecedented HUD customization for modpack creators and players
-- **Quality Standard**: Setting new standards for HUD management mod development
+- **Current State**: Basic HUD positioning functionality implemented
+- **Development Approach**: IDE-integrated development for accurate implementation
+- **Community Value**: Provides basic HUD customization for users who need it
+- **Quality Goal**: Aiming to provide reliable HUD management functionality
 
 ## 🙏 Acknowledgments
 
@@ -218,6 +218,6 @@ This project represents a breakthrough in Minecraft HUD management:
 ---
 
 **Made with ❤️ by GreatTomFox & Sora**  
-*Achieving HUD perfection through AI-human collaboration and technical innovation.*
+*Developing HUD management functionality through AI-human collaboration.*
 
-**🌟 Phase 3 Complete - Universal HUD mastery achieved! 🌟**
+**🚧 Development ongoing - Basic HUD positioning functionality available 🚧**
