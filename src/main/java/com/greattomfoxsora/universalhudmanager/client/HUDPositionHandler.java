@@ -33,29 +33,25 @@ public class HUDPositionHandler {
     /**
      * Pre-render event - called before GUI elements are rendered
      * This is where we can modify positions before rendering
+     * 
+     * Note: Edit mode rendering is now handled by HudEditScreen
      */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderGuiPre(RenderGuiEvent.Pre event) {
-        if (!isEditMode) return;
-        
-        GuiGraphics guiGraphics = event.getGuiGraphics();
-        
-        // Draw edit mode overlay
-        drawEditModeOverlay(guiGraphics);
+        // Edit mode rendering is now handled by HudEditScreen
+        // This method is reserved for future position modification logic
     }
     
     /**
      * Post-render event - called after GUI elements are rendered
      * Here we can draw additional UI elements like drag handles
+     * 
+     * Note: Edit mode rendering is now handled by HudEditScreen
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderGuiPost(RenderGuiEvent.Post event) {
-        if (!isEditMode) return;
-        
-        GuiGraphics guiGraphics = event.getGuiGraphics();
-        
-        // Draw HUD element outlines and drag handles
-        drawHUDElementOutlines(guiGraphics);
+        // Edit mode rendering is now handled by HudEditScreen
+        // This method is reserved for future overlay logic
     }
     
     /**
@@ -141,13 +137,21 @@ public class HUDPositionHandler {
             
         } else {
             // 編集モードOFF - スクリーンを閉じる
-            isEditMode = false;
+            setEditMode(false);
             if (mc.screen instanceof HudEditScreen) {
                 mc.setScreen(null);
             }
         }
         
         LOGGER.info("Edit mode: {}", isEditMode ? "ON" : "OFF");
+    }
+    
+    /**
+     * Set edit mode state (for external control)
+     */
+    public static void setEditMode(boolean editMode) {
+        isEditMode = editMode;
+        LOGGER.info("Edit mode set to: {}", isEditMode ? "ON" : "OFF");
     }
     
     /**

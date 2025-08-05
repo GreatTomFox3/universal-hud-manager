@@ -51,28 +51,68 @@ public class HUDRegistry {
      * Auto-discover vanilla Minecraft HUD elements
      */
     public static void discoverVanillaHUDs() {
+        // 画面サイズを取得
+        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+        int screenWidth = mc.getWindow().getGuiScaledWidth();
+        int screenHeight = mc.getWindow().getGuiScaledHeight();
+        
         // Health bar
-        registerHUD(new HUDElement("minecraft:health", "Health Bar", "minecraft"));
+        HUDElement health = new HUDElement("health", "Health Bar", "minecraft");
+        org.joml.Vector2i healthPos = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getDefaultHealthPosition(screenWidth, screenHeight);
+        org.joml.Vector2i healthOffset = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getHealthPosition();
+        org.joml.Vector2i healthFinal = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFinalPosition(healthPos, healthOffset);
+        health.setX(healthFinal.x);
+        health.setY(healthFinal.y);
+        health.setWidth(81);
+        health.setHeight(9);
+        registerHUD(health);
         
         // Food bar
-        registerHUD(new HUDElement("minecraft:food", "Food Bar", "minecraft"));
+        HUDElement food = new HUDElement("food", "Food Bar", "minecraft");
+        org.joml.Vector2i foodPos = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getDefaultFoodPosition(screenWidth, screenHeight);
+        org.joml.Vector2i foodOffset = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFoodPosition();
+        org.joml.Vector2i foodFinal = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFinalPosition(foodPos, foodOffset);
+        food.setX(foodFinal.x);
+        food.setY(foodFinal.y);
+        food.setWidth(81);
+        food.setHeight(9);
+        registerHUD(food);
         
         // Experience bar
-        registerHUD(new HUDElement("minecraft:experience", "Experience Bar", "minecraft"));
+        HUDElement experience = new HUDElement("experience", "Experience Bar", "minecraft");
+        org.joml.Vector2i expPos = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getDefaultExperiencePosition(screenWidth, screenHeight);
+        org.joml.Vector2i expOffset = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getExperiencePosition();
+        org.joml.Vector2i expFinal = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFinalPosition(expPos, expOffset);
+        experience.setX(expFinal.x);
+        experience.setY(expFinal.y);
+        experience.setWidth(182);
+        experience.setHeight(5);
+        registerHUD(experience);
         
         // Hotbar
-        registerHUD(new HUDElement("minecraft:hotbar", "Hotbar", "minecraft"));
+        HUDElement hotbar = new HUDElement("hotbar", "Hotbar", "minecraft");
+        org.joml.Vector2i hotbarPos = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getDefaultHotbarPosition(screenWidth, screenHeight);
+        org.joml.Vector2i hotbarOffset = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getHotbarPosition();
+        org.joml.Vector2i hotbarFinal = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFinalPosition(hotbarPos, hotbarOffset);
+        hotbar.setX(hotbarFinal.x);
+        hotbar.setY(hotbarFinal.y);
+        hotbar.setWidth(182);
+        hotbar.setHeight(22);
+        registerHUD(hotbar);
         
-        // Crosshair
-        registerHUD(new HUDElement("minecraft:crosshair", "Crosshair", "minecraft"));
+        // Air bar (only add if player needs it)
+        HUDElement air = new HUDElement("air", "Air Bar", "minecraft");
+        org.joml.Vector2i airPos = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getDefaultAirPosition(screenWidth, screenHeight);
+        org.joml.Vector2i airOffset = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getAirPosition();
+        org.joml.Vector2i airFinal = com.greattomfoxsora.universalhudmanager.config.HUDConfig.getFinalPosition(airPos, airOffset);
+        air.setX(airFinal.x);
+        air.setY(airFinal.y);
+        air.setWidth(81);
+        air.setHeight(9);
+        registerHUD(air);
         
-        // Chat
-        registerHUD(new HUDElement("minecraft:chat", "Chat", "minecraft"));
-        
-        // Debug info (F3)
-        registerHUD(new HUDElement("minecraft:debug", "Debug Info", "minecraft"));
-        
-        LOGGER.info("Discovered {} vanilla HUD elements", 7);
+        LOGGER.info("Discovered {} vanilla HUD elements with proper positions", 5);
+        LOGGER.info("Screen size: {}x{}", screenWidth, screenHeight);
     }
     
     /**

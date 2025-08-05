@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c:*)",
+      "Bash(powershell:*)",
+      "Bash(./gradlew build:*)",
+      "Bash(gradle build)",
+      "Bash(./gradlew.bat build:*)",
+      "Bash(export:*)"
+    ],
+    "deny": []
+  }
+}

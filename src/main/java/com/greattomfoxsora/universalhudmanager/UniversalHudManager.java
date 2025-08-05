@@ -3,6 +3,7 @@ package com.greattomfoxsora.universalhudmanager;
 import com.mojang.logging.LogUtils;
 import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
+import com.greattomfoxsora.universalhudmanager.client.ResourcePackCompatibleOverlays;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,6 +40,8 @@ public class UniversalHudManager {
         // Register client setup event
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(this::doClientStuff);
+            // NOTE: VanillaHudController handles overlay cancellation automatically
+            // Removed duplicate ResourcePackCompatibleOverlays::onGuiOverlayEvent registration
         }
         
         // Register ourselves for server and other game events we are interested in
