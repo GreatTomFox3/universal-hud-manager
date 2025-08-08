@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.greattomfoxsora.universalhudmanager.core.HUDRegistry;
 import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
 import com.greattomfoxsora.universalhudmanager.client.ResourcePackCompatibleOverlays;
+import com.greattomfoxsora.universalhudmanager.client.HUDPositionHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,6 +32,13 @@ public class UniversalHudManager {
     public static final String MODID = "universalhudmanager";
     private static final Logger LOGGER = LogUtils.getLogger();
     
+    /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
+    
     public UniversalHudManager() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         
@@ -47,19 +55,30 @@ public class UniversalHudManager {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         
+        // Register HUD position handler for edit mode
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(HUDPositionHandler.class);
+        }
+        
         LOGGER.info("Universal HUD Manager initialized!");
-        LOGGER.info("Config system registered - Vector2i positioning enabled!");
-        LOGGER.info("Created by GreatTomFox & Sora - Making HUD management universal!");
+        if (isDebugEnabled()) {
+            LOGGER.debug("Config system registered - Vector2i positioning enabled!");
+            LOGGER.debug("Created by GreatTomFox & Sora - Making HUD management universal!");
+        }
     }
     
     private void doClientStuff(final FMLClientSetupEvent event) {
         // Initialize HUD discovery on client
         event.enqueueWork(() -> {
-            LOGGER.info("Initializing client-side HUD discovery...");
+            if (isDebugEnabled()) {
+                LOGGER.debug("Initializing client-side HUD discovery...");
+            }
             HUDRegistry.clear();
             HUDRegistry.discoverVanillaHUDs();
             HUDRegistry.discoverModHUDs();
-            LOGGER.info("Client initialization complete. {}", HUDRegistry.getStats());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Client initialization complete. {}", HUDRegistry.getStats());
+            }
         });
     }
 }

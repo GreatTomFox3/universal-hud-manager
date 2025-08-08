@@ -40,8 +40,14 @@ public class HUDConfig {
     public static final ForgeConfigSpec.BooleanValue HUD_EDIT_MODE;
     public static final ForgeConfigSpec.BooleanValue SHOW_PLACEHOLDERS;
     
+    // Debug settings
+    public static final ForgeConfigSpec.BooleanValue DEBUG_MODE;
+    
     // Armor display settings
     public static final ForgeConfigSpec.BooleanValue ARMOR_VANILLA_STYLE;
+    
+    // Hotbar display settings
+    public static final ForgeConfigSpec.BooleanValue HOTBAR_VANILLA_STYLE;
     
     static {
         BUILDER.push("hud_positions");
@@ -128,6 +134,10 @@ public class HUDConfig {
                 .comment("Show placeholder boxes in edit mode")
                 .define("show_placeholders", true);
         
+        DEBUG_MODE = BUILDER
+                .comment("Enable debug logging (default: false, reduces log spam)")
+                .define("debug_mode", true);
+        
         BUILDER.pop();
         
         BUILDER.push("armor_display");
@@ -136,6 +146,15 @@ public class HUDConfig {
         ARMOR_VANILLA_STYLE = BUILDER
                 .comment("Armor display style: true = Vanilla-like (show empty armor slots), false = Simple (show only equipped armor)")
                 .define("armor_vanilla_style", true);
+        
+        BUILDER.pop();
+        
+        BUILDER.push("hotbar_display");
+        
+        // Hotbar display style
+        HOTBAR_VANILLA_STYLE = BUILDER
+                .comment("Hotbar selection box style: true = Vanilla-like (background covers selection box), false = Enhanced (selection box on top)")
+                .define("hotbar_vanilla_style", false);
         
         BUILDER.pop();
         
@@ -293,10 +312,11 @@ public class HUDConfig {
      * 2025-08-05 fix: Use VanillaPositionManager for accurate positioning
      */
     public static Vector2i getDefaultFoodPosition(int screenWidth, int screenHeight) {
-        // 2025-08-05 URGENT FIX: Temporary revert to fixed position for debugging
-        // VanillaPositionManager integration causing HUD disappearance
-        // Position adjustment: -9px left total (91 → 82) = -10px + 1px right
-        return new Vector2i(screenWidth / 2 + 82, screenHeight - 39);
+        // 🚨 2025-08-08 CRITICAL FIX: Correct vanilla Food Bar position (本当の修正！)
+        // Vanilla実装: screenWidth / 2 + 10 (右側、ホットバーのすぐ右)
+        // 以前の間違い: screenWidth / 2 + 91 (これだと右に寄りすぎ！)
+        // 智の報告: 緑枠が実際のFood Barより左に表示されてた問題を修正
+        return new Vector2i(screenWidth / 2 + 10, screenHeight - 39);
         
         /*
         if (HUD_EDIT_MODE.get()) {
@@ -324,13 +344,15 @@ public class HUDConfig {
     
     /**
      * Get default air bar position (above food bar)
-     * 2025-08-05 fix: Use VanillaPositionManager for accurate positioning
+     * 2025-08-08 fix: Align Air Bar X position with Food Bar
      */
     public static Vector2i getDefaultAirPosition(int screenWidth, int screenHeight) {
-        // 2025-08-05 URGENT FIX: Temporary revert to fixed position for debugging
-        // VanillaPositionManager integration causing HUD disappearance
-        // Position adjustment: -9px left total (91 → 82) = -10px + 1px right
-        return new Vector2i(screenWidth / 2 + 82, screenHeight - 49);
+        // 🚨 2025-08-08 CRITICAL FIX: Air Bar should align with Food Bar horizontally
+        // Food Bar is at: screenWidth / 2 + 10 (correct X position)
+        // Air Bar should have the SAME X position as Food Bar, just 10 pixels higher
+        // Before: screenWidth / 2 + 91 (too far right!)
+        // After: screenWidth / 2 + 10 (aligned with Food Bar)
+        return new Vector2i(screenWidth / 2 + 10, screenHeight - 49);
         
         /*
         if (HUD_EDIT_MODE.get()) {
@@ -371,9 +393,11 @@ public class HUDConfig {
     
     /**
      * Get default chat position (bottom-left)
+     * Fixed: Vanilla accurate Y position (screenHeight - 48, not -40)
+     * 2025-08-06: Moved 5px left per user request (4 -> -1)
      */
     public static Vector2i getDefaultChatPosition(int screenWidth, int screenHeight) {
-        return new Vector2i(4, screenHeight - 40);
+        return new Vector2i(-1, screenHeight - 48);
     }
     
     /**

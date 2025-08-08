@@ -1,6 +1,7 @@
 package com.greattomfoxsora.universalhudmanager.core;
 
 import com.mojang.logging.LogUtils;
+import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
 import org.slf4j.Logger;
 
 import java.util.*;
@@ -16,12 +17,21 @@ public class HUDRegistry {
     private static final Map<String, HUDElement> registeredHUDs = new ConcurrentHashMap<>();
     
     /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
+    
+    /**
      * Register a new HUD element
      */
     public static void registerHUD(HUDElement element) {
         registeredHUDs.put(element.getId(), element);
-        LOGGER.info("Registered HUD element: {} from mod: {}", 
-                   element.getDisplayName(), element.getModId());
+        if (isDebugEnabled()) {
+            LOGGER.debug("Registered HUD element: {} from mod: {}", 
+                       element.getDisplayName(), element.getModId());
+        }
     }
     
     /**
@@ -111,8 +121,10 @@ public class HUDRegistry {
         air.setHeight(9);
         registerHUD(air);
         
-        LOGGER.info("Discovered {} vanilla HUD elements with proper positions", 5);
-        LOGGER.info("Screen size: {}x{}", screenWidth, screenHeight);
+        if (isDebugEnabled()) {
+            LOGGER.debug("Discovered {} vanilla HUD elements with proper positions", 5);
+            LOGGER.debug("Screen size: {}x{}", screenWidth, screenHeight);
+        }
     }
     
     /**
@@ -123,20 +135,26 @@ public class HUDRegistry {
         if (isModLoaded("tfc")) {
             registerHUD(new HUDElement("tfc:thirst", "Thirst Bar", "tfc"));
             registerHUD(new HUDElement("tfc:temperature", "Temperature", "tfc"));
-            LOGGER.info("Discovered TerraFirmaCraft HUD elements");
+            if (isDebugEnabled()) {
+                LOGGER.debug("Discovered TerraFirmaCraft HUD elements");
+            }
         }
         
         // JEI HUDs
         if (isModLoaded("jei")) {
             registerHUD(new HUDElement("jei:item_list", "Item List", "jei"));
             registerHUD(new HUDElement("jei:recipe_gui", "Recipe GUI", "jei"));
-            LOGGER.info("Discovered JEI HUD elements");
+            if (isDebugEnabled()) {
+                LOGGER.debug("Discovered JEI HUD elements");
+            }
         }
         
         // Jade/WAILA HUDs
         if (isModLoaded("jade")) {
             registerHUD(new HUDElement("jade:tooltip", "Block Info Tooltip", "jade"));
-            LOGGER.info("Discovered Jade HUD elements");
+            if (isDebugEnabled()) {
+                LOGGER.debug("Discovered Jade HUD elements");
+            }
         }
     }
     
@@ -156,7 +174,9 @@ public class HUDRegistry {
      */
     public static void clear() {
         registeredHUDs.clear();
-        LOGGER.info("Cleared all registered HUD elements");
+        if (isDebugEnabled()) {
+            LOGGER.debug("Cleared all registered HUD elements");
+        }
     }
     
     /**

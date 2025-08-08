@@ -18,6 +18,7 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
+import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
 
 /**
  * Universal HUD Manager のHUDオーバーレイ制御システム
@@ -29,6 +30,13 @@ import org.slf4j.Logger;
 // @Mod.EventBusSubscriber(modid = UniversalHudManager.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HUDOverlayHandler {
     private static final Logger LOGGER = LogUtils.getLogger();
+    
+    /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
     
     // バニラHUDオーバーレイのResourceLocation
     private static final ResourceLocation VANILLA_HEALTH = VanillaGuiOverlay.PLAYER_HEALTH.id();
@@ -55,7 +63,9 @@ public class HUDOverlayHandler {
             "custom_experience", 
             HUDOverlayHandler::renderCustomExperience);
         
-        LOGGER.info("Universal HUD Manager overlays registered");
+        if (isDebugEnabled()) {
+            LOGGER.debug("Universal HUD Manager overlays registered");
+        }
     }
     
     /**
@@ -72,7 +82,9 @@ public class HUDOverlayHandler {
             if (overlayId.equals(VANILLA_HEALTH)) {
                 HUDElement healthElement = HUDRegistry.getHUD("minecraft:health");
                 if (healthElement != null) {
-                    LOGGER.debug("Canceling vanilla health overlay - under HUD Manager control");
+                    if (isDebugEnabled()) {
+                        LOGGER.debug("Canceling vanilla health overlay - under HUD Manager control");
+                    }
                     event.setCanceled(true);
                 }
             }
@@ -81,7 +93,9 @@ public class HUDOverlayHandler {
             if (overlayId.equals(VANILLA_FOOD)) {
                 HUDElement foodElement = HUDRegistry.getHUD("minecraft:food");
                 if (foodElement != null) {
-                    LOGGER.debug("Canceling vanilla food overlay - under HUD Manager control");
+                    if (isDebugEnabled()) {
+                        LOGGER.debug("Canceling vanilla food overlay - under HUD Manager control");
+                    }
                     event.setCanceled(true);
                 }
             }
@@ -90,7 +104,9 @@ public class HUDOverlayHandler {
             if (overlayId.equals(VANILLA_EXP)) {
                 HUDElement expElement = HUDRegistry.getHUD("minecraft:experience");
                 if (expElement != null) {
-                    LOGGER.debug("Canceling vanilla experience overlay - under HUD Manager control");
+                    if (isDebugEnabled()) {
+                        LOGGER.debug("Canceling vanilla experience overlay - under HUD Manager control");
+                    }
                     event.setCanceled(true);
                 }
             }
@@ -103,7 +119,9 @@ public class HUDOverlayHandler {
     private static void renderCustomHealth(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width, int height) {
         HUDElement healthElement = HUDRegistry.getHUD("minecraft:health");
         if (healthElement != null) {
-            LOGGER.info("Custom Health rendering at position: {}, {} - 実装が必要", healthElement.getX(), healthElement.getY());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Custom Health rendering at position: {}, {} - 実装が必要", healthElement.getX(), healthElement.getY());
+            }
             
             // TODO: 実際のヘルスバー描画をカスタム位置で実装
             // 現段階では位置情報のログ出力のみ
@@ -122,7 +140,9 @@ public class HUDOverlayHandler {
     private static void renderCustomFood(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width, int height) {
         HUDElement foodElement = HUDRegistry.getHUD("minecraft:food");
         if (foodElement != null) {
-            LOGGER.info("Custom Food rendering at position: {}, {} - 実装が必要", foodElement.getX(), foodElement.getY());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Custom Food rendering at position: {}, {} - 実装が必要", foodElement.getX(), foodElement.getY());
+            }
             
             // TODO: 実際のフードバー描画をカスタム位置で実装
             // 現段階では位置情報のログ出力のみ
@@ -141,7 +161,9 @@ public class HUDOverlayHandler {
     private static void renderCustomExperience(ForgeGui gui, GuiGraphics graphics, float partialTicks, int width, int height) {
         HUDElement expElement = HUDRegistry.getHUD("minecraft:experience");
         if (expElement != null) {
-            LOGGER.info("Custom Experience rendering at position: {}, {} - 実装が必要", expElement.getX(), expElement.getY());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Custom Experience rendering at position: {}, {} - 実装が必要", expElement.getX(), expElement.getY());
+            }
             
             // TODO: 実際の経験値バー描画をカスタム位置で実装
             // 現段階では位置情報のログ出力のみ

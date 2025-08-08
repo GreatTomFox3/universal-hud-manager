@@ -18,8 +18,12 @@ public class VanillaHudController {
     
     private static final Logger LOGGER = LogUtils.getLogger();
     
-    // Debug control - disable excessive logging
-    private static boolean enableDetailedLogging = false;
+    /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
     
     /**
      * Cancel vanilla HUD rendering when custom positioning is enabled
@@ -29,7 +33,7 @@ public class VanillaHudController {
         // Cancel vanilla health bar when custom health is enabled
         if (HUDConfig.HEALTH_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.PLAYER_HEALTH.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla health overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla health overlay");
             event.setCanceled(true);
             return;
         }
@@ -37,7 +41,7 @@ public class VanillaHudController {
         // Cancel vanilla food bar when custom food is enabled
         if (HUDConfig.FOOD_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.FOOD_LEVEL.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla food overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla food overlay");
             event.setCanceled(true);
             return;
         }
@@ -45,7 +49,7 @@ public class VanillaHudController {
         // Cancel vanilla experience bar when custom experience is enabled
         if (HUDConfig.EXPERIENCE_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.EXPERIENCE_BAR.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla experience overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla experience overlay");
             event.setCanceled(true);
             return;
         }
@@ -53,7 +57,7 @@ public class VanillaHudController {
         // Cancel vanilla hotbar when custom hotbar is enabled
         if (HUDConfig.HOTBAR_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.HOTBAR.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla hotbar overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla hotbar overlay");
             event.setCanceled(true);
             return;
         }
@@ -61,7 +65,7 @@ public class VanillaHudController {
         // Cancel vanilla air level when custom air is enabled
         if (HUDConfig.AIR_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.AIR_LEVEL.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla air overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla air overlay");
             event.setCanceled(true);
             return;
         }
@@ -69,7 +73,7 @@ public class VanillaHudController {
         // Cancel vanilla armor level when custom armor is enabled
         if (HUDConfig.ARMOR_ENABLED.get() && 
             event.getOverlay().id().equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
-            if (enableDetailedLogging) LOGGER.info("Canceling vanilla armor overlay");
+            if (isDebugEnabled()) LOGGER.debug("Canceling vanilla armor overlay");
             event.setCanceled(true);
             return;
         }
@@ -82,7 +86,7 @@ public class VanillaHudController {
             // Cancel mount health display (conflicts with our horse health rendering)
             if ((path.equals("mount_health") || path.contains("horse")) && 
                 HUDConfig.FOOD_ENABLED.get()) {
-                if (enableDetailedLogging) LOGGER.info("Canceling vanilla mount health overlay: {}", event.getOverlay().id());
+                if (isDebugEnabled()) LOGGER.debug("Canceling vanilla mount health overlay: {}", event.getOverlay().id());
                 event.setCanceled(true);
                 return;
             }
@@ -90,20 +94,13 @@ public class VanillaHudController {
             // Cancel jump bar display (conflicts with our horse jump rendering)
             if ((path.equals("jump_bar") || path.contains("jump")) && 
                 HUDConfig.EXPERIENCE_ENABLED.get()) {
-                if (enableDetailedLogging) LOGGER.info("Canceling vanilla jump bar overlay: {}", event.getOverlay().id());
+                if (isDebugEnabled()) LOGGER.debug("Canceling vanilla jump bar overlay: {}", event.getOverlay().id());
                 event.setCanceled(true);
                 return;
             }
         }
         
-        // Chat positioning is complex, skip for now
-        // TODO: Implement chat positioning in future version
-        /*
-        if (HUDConfig.CHAT_ENABLED.get() && 
-            event.getOverlay().id().equals(VanillaGuiOverlay.CHAT_PANEL.id())) {
-            event.setCanceled(true);
-            return;
-        }
-        */
+        // Don't cancel vanilla chat - let it handle its own behavior
+        // Chat position will be controlled by ChatPositionHandler using CustomizeGuiOverlayEvent.Chat
     }
 }

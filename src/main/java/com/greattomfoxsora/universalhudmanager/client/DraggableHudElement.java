@@ -19,6 +19,13 @@ import org.slf4j.Logger;
 public class DraggableHudElement extends AbstractWidget {
     private static final Logger LOGGER = LogUtils.getLogger();
     
+    /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
+    
     private final HUDElement hudElement;
     private boolean isDragging = false;
     private double dragStartX, dragStartY;
@@ -93,10 +100,12 @@ public class DraggableHudElement extends AbstractWidget {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         // 詳細なマウス位置とウィジェット領域の情報
         boolean mouseOver = isMouseOver(mouseX, mouseY);
-        LOGGER.info("Mouse clicked on {}: mouse=({},{}) button={} isMouseOver={} widget=({},{},{},{}) bounds=({} to {}, {} to {})", 
-                   hudElement.getDisplayName(), mouseX, mouseY, button, mouseOver,
-                   getX(), getY(), width, height,
-                   getX(), getX() + width, getY(), getY() + height);
+        if (isDebugEnabled()) {
+            LOGGER.debug("Mouse clicked on {}: mouse=({},{}) button={} isMouseOver={} widget=({},{},{},{}) bounds=({} to {}, {} to {})", 
+                       hudElement.getDisplayName(), mouseX, mouseY, button, mouseOver,
+                       getX(), getY(), width, height,
+                       getX(), getX() + width, getY(), getY() + height);
+        }
         
         if (button == 0 && mouseOver) {
             isDragging = true;
@@ -105,8 +114,10 @@ public class DraggableHudElement extends AbstractWidget {
             elementStartX = this.getX();
             elementStartY = this.getY();
             
-            LOGGER.info("Started dragging {}: dragStart=({},{}) elementStart=({},{})", 
-                       hudElement.getDisplayName(), dragStartX, dragStartY, elementStartX, elementStartY);
+            if (isDebugEnabled()) {
+                LOGGER.debug("Started dragging {}: dragStart=({},{}) elementStart=({},{})", 
+                           hudElement.getDisplayName(), dragStartX, dragStartY, elementStartX, elementStartY);
+            }
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -114,8 +125,10 @@ public class DraggableHudElement extends AbstractWidget {
     
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-        LOGGER.info("Mouse dragged on {}: mouse=({}, {}) button={} isDragging={} dragStart=({},{})", 
-                   hudElement.getDisplayName(), mouseX, mouseY, button, isDragging, dragStartX, dragStartY);
+        if (isDebugEnabled()) {
+            LOGGER.debug("Mouse dragged on {}: mouse=({}, {}) button={} isDragging={} dragStart=({},{})", 
+                       hudElement.getDisplayName(), mouseX, mouseY, button, isDragging, dragStartX, dragStartY);
+        }
         
         if (isDragging && button == 0) {
             // 新しい位置を計算（elementStartX/Yを基準に）
@@ -124,9 +137,11 @@ public class DraggableHudElement extends AbstractWidget {
             double newX = elementStartX + deltaMouseX;
             double newY = elementStartY + deltaMouseY;
             
-            LOGGER.info("Dragging {} calculation: elementStart=({},{}) mouseDelta=({},{}) newPos=({},{})", 
-                       hudElement.getDisplayName(), elementStartX, elementStartY, 
-                       deltaMouseX, deltaMouseY, newX, newY);
+            if (isDebugEnabled()) {
+                LOGGER.debug("Dragging {} calculation: elementStart=({},{}) mouseDelta=({},{}) newPos=({},{})", 
+                           hudElement.getDisplayName(), elementStartX, elementStartY, 
+                           deltaMouseX, deltaMouseY, newX, newY);
+            }
             
             // 画面境界内に制限
             int screenWidth = net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledWidth();
@@ -134,8 +149,10 @@ public class DraggableHudElement extends AbstractWidget {
             newX = Math.max(0, Math.min(newX, screenWidth - width));
             newY = Math.max(0, Math.min(newY, screenHeight - height));
             
-            LOGGER.info("Dragging {} final: bounded to ({},{}) screenSize={}x{} widgetSize={}x{}", 
-                       hudElement.getDisplayName(), (int)newX, (int)newY, screenWidth, screenHeight, width, height);
+            if (isDebugEnabled()) {
+                LOGGER.debug("Dragging {} final: bounded to ({},{}) screenSize={}x{} widgetSize={}x{}", 
+                           hudElement.getDisplayName(), (int)newX, (int)newY, screenWidth, screenHeight, width, height);
+            }
             
             // ウィジェットの位置を更新（HUD要素は更新しない）
             this.setX((int)newX);
@@ -148,8 +165,10 @@ public class DraggableHudElement extends AbstractWidget {
             
             return true;
         } else {
-            LOGGER.info("Mouse dragged on {}: NOT DRAGGING (isDragging={} button={})", 
-                       hudElement.getDisplayName(), isDragging, button);
+            if (isDebugEnabled()) {
+                LOGGER.debug("Mouse dragged on {}: NOT DRAGGING (isDragging={} button={})", 
+                           hudElement.getDisplayName(), isDragging, button);
+            }
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
@@ -159,8 +178,10 @@ public class DraggableHudElement extends AbstractWidget {
         if (button == 0 && isDragging) {
             isDragging = false;
             
-            LOGGER.info("Finished dragging HUD element: {} to ({}, {})", 
-                       hudElement.getDisplayName(), getX(), getY());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Finished dragging HUD element: {} to ({}, {})", 
+                           hudElement.getDisplayName(), getX(), getY());
+            }
             return true;
         }
         return super.mouseReleased(mouseX, mouseY, button);
@@ -185,8 +206,10 @@ public class DraggableHudElement extends AbstractWidget {
         // HUDConfigにも永続保存
         saveToConfig();
         
-        LOGGER.info("Saved position for HUD element: {} at ({}, {}) to both runtime and config", 
-                   hudElement.getDisplayName(), newX, newY);
+        if (isDebugEnabled()) {
+            LOGGER.debug("Saved position for HUD element: {} at ({}, {}) to both runtime and config", 
+                       hudElement.getDisplayName(), newX, newY);
+        }
     }
     
     /**
@@ -242,8 +265,10 @@ public class DraggableHudElement extends AbstractWidget {
         // Configファイルに実際に保存
         try {
             HUDConfig.SPEC.save();
-            LOGGER.info("Saved to config: {} -> offset ({}, {}) from default ({}, {})", 
-                       hudId, currentPos.x - defaultPos.x, currentPos.y - defaultPos.y, defaultPos.x, defaultPos.y);
+            if (isDebugEnabled()) {
+                LOGGER.debug("Saved to config: {} -> offset ({}, {}) from default ({}, {})", 
+                           hudId, currentPos.x - defaultPos.x, currentPos.y - defaultPos.y, defaultPos.x, defaultPos.y);
+            }
         } catch (Exception e) {
             LOGGER.error("Failed to save config for {}: {}", hudId, e.getMessage());
         }

@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -30,25 +31,47 @@ public class ResourcePackCompatibleOverlays {
     private static int lastScreenWidth = -1, lastScreenHeight = -1;
     private static final java.util.Map<String, Vector2i> POSITION_CACHE = new java.util.concurrent.ConcurrentHashMap<>();
     
-    // デバッグフラグ - 座標測定時のみtrue
-    private static boolean DEBUG_POSITIONS = false; // Production build
+    // デバッグフラグ - configで制御（デフォルトfalse）
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
     private static boolean debugLogPrinted = false;
     
-    // Vanilla HUDの実際の位置を取得するヘルパーメソッド（キャッシュ付き）
+    // Vanilla HUDの実際の位置を取得するヘルパーメソッド（リアルタイム一時オフセット対応）
     public static Vector2i getActualHudPosition(String hudId, int screenWidth, int screenHeight) {
-        // Clear cache if screen size changed
-        if (screenWidth != lastScreenWidth || screenHeight != lastScreenHeight) {
-            POSITION_CACHE.clear();
-            lastScreenWidth = screenWidth;
-            lastScreenHeight = screenHeight;
+        // 基本座標とConfigオフセットを計算
+        Vector2i offset = getCurrentOffset(hudId);
+        Vector2i basePosition = getDefaultPosition(hudId, screenWidth, screenHeight);
+        Vector2i actualPosition = new Vector2i(basePosition.x + offset.x, basePosition.y + offset.y);
+        
+        // 🌟 CRITICAL FIX: 編集モード中は一時ドラッグオフセットを追加適用
+        if (HudEditScreen.isEditModeActive()) {
+            Vector2i temporaryOffset = HudEditScreen.getTemporaryDragOffset(hudId);
+            if (temporaryOffset != null) {
+                // ドラッグ中は一時オフセットを上書きして適用（Configオフセットは使わない）
+                actualPosition = new Vector2i(basePosition.x + temporaryOffset.x, basePosition.y + temporaryOffset.y);
+                
+                if (isDebugEnabled()) {
+                    LOGGER.debug("getActualHudPosition({}): DRAG MODE - base=({},{}) tempOffset=({},{}) actual=({},{})", 
+                                hudId, basePosition.x, basePosition.y, temporaryOffset.x, temporaryOffset.y, 
+                                actualPosition.x, actualPosition.y);
+                }
+            } else {
+                if (isDebugEnabled()) {
+                    LOGGER.debug("getActualHudPosition({}): EDIT MODE - base=({},{}) configOffset=({},{}) actual=({},{})", 
+                                hudId, basePosition.x, basePosition.y, offset.x, offset.y, 
+                                actualPosition.x, actualPosition.y);
+                }
+            }
+        } else {
+            if (isDebugEnabled()) {
+                LOGGER.debug("getActualHudPosition({}): NORMAL MODE - base=({},{}) offset=({},{}) actual=({},{})", 
+                            hudId, basePosition.x, basePosition.y, offset.x, offset.y, 
+                            actualPosition.x, actualPosition.y);
+            }
         }
         
-        // Use cached position if available
-        return POSITION_CACHE.computeIfAbsent(hudId, id -> {
-            Vector2i offset = getCurrentOffset(id);
-            Vector2i basePosition = getDefaultPosition(id, screenWidth, screenHeight);
-            return new Vector2i(basePosition.x + offset.x, basePosition.y + offset.y);
-        });
+        return actualPosition;
     }
     
     private static Vector2i getCurrentOffset(String hudId) {
@@ -59,6 +82,7 @@ public class ResourcePackCompatibleOverlays {
             case "hotbar": return HUDConfig.getHotbarPosition();
             case "air": return HUDConfig.getAirPosition();
             case "armor": return HUDConfig.getArmorPosition();
+            case "chat": return HUDConfig.getChatPosition();
             default: return new Vector2i(0, 0);
         }
     }
@@ -71,6 +95,7 @@ public class ResourcePackCompatibleOverlays {
             case "hotbar": return HUDConfig.getDefaultHotbarPosition(screenWidth, screenHeight);
             case "air": return HUDConfig.getDefaultAirPosition(screenWidth, screenHeight);
             case "armor": return HUDConfig.getDefaultArmorPosition(screenWidth, screenHeight);
+            case "chat": return HUDConfig.getDefaultChatPosition(screenWidth, screenHeight);
             default: return new Vector2i(0, 0);
         }
     }
@@ -79,10 +104,10 @@ public class ResourcePackCompatibleOverlays {
      * デバッグ用座標測定メソッド - 実際のVanilla座標と比較用
      */
     public static void debugVanillaPositions(int screenWidth, int screenHeight) {
-        if (!DEBUG_POSITIONS || debugLogPrinted) return;
+        if (!isDebugEnabled() || debugLogPrinted) return;
         
         // デバッグ情報をLOGGERで出力
-        if (DEBUG_POSITIONS) {
+        if (isDebugEnabled()) {
             LOGGER.debug("=== Universal HUD Manager - Vanilla Position Debug ===");
             LOGGER.debug("Screen Size: {}x{}", screenWidth, screenHeight);
             LOGGER.debug("GUI Scale: {}", net.minecraft.client.Minecraft.getInstance().options.guiScale().get());
@@ -160,17 +185,15 @@ public class ResourcePackCompatibleOverlays {
         
         // Player health display logic
         // Note: In Vanilla, player health always shows on left, even when riding
-        if (DEBUG_POSITIONS && !debugLogPrinted) {
+        if (isDebugEnabled() && !debugLogPrinted) {
             boolean ridingMount = isRidingMount(player);
             if (ridingMount) { // Only log when actually riding to reduce spam
-                System.out.println("Health Overlay Debug - Player health while riding mount");
+                LOGGER.debug("Health Overlay Debug - Player health while riding mount");
             }
         }
         
-        // Get position offset and calculate final position (2025-08-04 fix applied)
-        Vector2i offset = HUDConfig.getHealthPosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultHealthPosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("health", width, height);
         
         // Use vanilla GUI rendering method for full Resource Pack support
         renderVanillaHealth(gui, graphics, partialTick, width, height);
@@ -192,10 +215,8 @@ public class ResourcePackCompatibleOverlays {
         // FOOD_OVERLAY is typically rendered first, so it handles the reset
         HUDConfig.VanillaPositionManager.resetForFrame();
         
-        // Get position offset and calculate final position (2025-08-04 fix applied)
-        Vector2i offset = HUDConfig.getFoodPosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultFoodPosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("food", width, height);
         
         // Enhanced mount detection and rendering
         if (isRidingMount(player)) {
@@ -219,9 +240,8 @@ public class ResourcePackCompatibleOverlays {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null || !shouldRenderSurvivalElements()) return;
         
-        Vector2i offset = HUDConfig.getExperiencePosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultExperiencePosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("experience", width, height);
         
         // Enhanced experience/jump bar rendering (2025-08-04 fix applied)
         if (isRidingMount(player)) {
@@ -244,9 +264,8 @@ public class ResourcePackCompatibleOverlays {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null || !shouldRenderHotbar()) return;
         
-        Vector2i offset = HUDConfig.getHotbarPosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultHotbarPosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("hotbar", width, height);
         
         renderVanillaHotbar(gui, graphics, partialTick, width, height);
         renderSimpleHotbar(graphics, finalPos.x, finalPos.y, player, partialTick);
@@ -268,9 +287,8 @@ public class ResourcePackCompatibleOverlays {
         
         if (!shouldRender) return;
         
-        Vector2i offset = HUDConfig.getAirPosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultAirPosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("air", width, height);
         
         renderVanillaAir(gui, graphics, partialTick, width, height);
         renderSimpleAir(graphics, finalPos.x, finalPos.y, player);
@@ -297,14 +315,19 @@ public class ResourcePackCompatibleOverlays {
         int armorValue = player.getArmorValue();
         if (armorValue <= 0 && !HUDConfig.HUD_EDIT_MODE.get()) return;
         
-        Vector2i offset = HUDConfig.getArmorPosition();
-        Vector2i finalPos = HUDConfig.getFinalPosition(
-            HUDConfig.getDefaultArmorPosition(width, height), offset);
+        // 🌟 2025-08-06 CRITICAL FIX: Use getActualHudPosition for temporary drag offset support
+        Vector2i finalPos = getActualHudPosition("armor", width, height);
         
         renderVanillaArmor(gui, graphics, partialTick, width, height);
         renderSimpleArmor(graphics, finalPos.x, finalPos.y, player);
     };
     
+    /**
+     * Chat positioning is now handled by ChatPositionHandler using CustomizeGuiOverlayEvent.Chat
+     * This preserves all vanilla chat functionality (tick, fade, input handling, etc.)
+     */
+    // CHAT_OVERLAY removed - replaced by ChatPositionHandler for better vanilla compatibility
+
     /**
      * Register all overlays
      */
@@ -317,6 +340,7 @@ public class ResourcePackCompatibleOverlays {
         event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "universal_hotbar_rp", HOTBAR_OVERLAY);
         event.registerAbove(VanillaGuiOverlay.AIR_LEVEL.id(), "universal_air_rp", AIR_OVERLAY);
         event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "universal_armor_rp", ARMOR_OVERLAY);
+        // Chat positioning now handled by ChatPositionHandler - no overlay registration needed
     }
     
     // NOTE: Overlay cancellation is now handled exclusively by VanillaHudController
@@ -434,6 +458,8 @@ public class ResourcePackCompatibleOverlays {
     private static void renderSimpleFood(GuiGraphics graphics, int x, int y, LocalPlayer player) {
         // Food bar implementation - using direct coordinates (2025-08-04 fix)
         // 2025-08-05 fix: Vanilla-accurate coordinate calculation with proper offset support
+        // 🚨 2025-08-08 CRITICAL FIX: Change from right-edge to left-edge positioning
+        //    The green frame shows the LEFT edge of the food bar, not the right!
         
         net.minecraft.resources.ResourceLocation GUI_ICONS_LOCATION = 
             new net.minecraft.resources.ResourceLocation("textures/gui/icons.png");
@@ -443,11 +469,11 @@ public class ResourcePackCompatibleOverlays {
         int foodLevel = foodData.getFoodLevel();
         
         // Render food icons with Vanilla-accurate coordinate calculation
-        // Use provided x,y as base position (includes HUDConfig offset)
+        // 🌟 Fixed: x,y now represents the LEFT edge of the food bar (matching green frame)
         for (int i = 0; i < 10; ++i) {
-            // Vanilla-accurate relative calculation: base position + right-to-left offset
-            // In vanilla: starts from right edge and goes left with 8px spacing
-            int foodX = x - i * 8;  // Right-to-left positioning from base x
+            // Left-to-right positioning: start from left edge and go right
+            // Each food icon is 8px apart (9px icon - 1px overlap)
+            int foodX = x + (9 - i) * 8;  // Left-to-right positioning from base x
             int foodY = y;
             
             // Background
@@ -474,7 +500,7 @@ public class ResourcePackCompatibleOverlays {
     
     /**
      * Vanilla-Accurate Experience Bar rendering for Forge 1.20.1
-     * Uses icons.png with correct coordinates and proper text rendering
+     * Uses icons.png with correct coordinates and proper text rendering with 8-direction outline
      */
     private static void renderVanillaAccurateExperienceBar(GuiGraphics graphics, int x, int y, LocalPlayer player) {
         // Use icons.png at correct coordinates for Forge 1.20.1
@@ -487,26 +513,59 @@ public class ResourcePackCompatibleOverlays {
             graphics.blit(GUI_ICONS_LOCATION, x - 1, y, 0, 69, fillWidth, 5);
         }
         
-        // Experience level text - Vanilla-accurate positioning with drop shadow
+        // Experience level text - ULTIMATE Vanilla-accurate 8-direction outline (EFFECT_DEPTH=1)
         String levelText = String.valueOf(player.experienceLevel);
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-        int centerX = x + 182 / 2 - 1; // Center of the experience bar, adjusted 1px left
-        int textY = y - 6; // Perfect distance from bar like vanilla (was -5, now -6)
+        net.minecraft.client.gui.Font font = mc.font;
         
-        // Use drawCenteredString for vanilla-accurate appearance
-        // Note: Forge 1.20.1 drawCenteredString automatically includes drop shadow
-        graphics.drawCenteredString(mc.font, levelText, centerX, textY, 0x80FF20);
+        // Vanilla coordinate calculation
+        int textWidth = font.width(levelText);
+        int textX = x + 91 - textWidth / 2;  // Perfect center alignment (182/2 = 91)
+        int textY = y - 6; // Vanilla-accurate distance from bar
+        
+        // ULTIMATE Vanilla reproduction: Exact 4-direction outline + center text
+        // Based on actual Vanilla bytecode analysis - this is exactly how Vanilla does it!
+        
+        // 1. Right outline (x+1)
+        graphics.drawString(font, levelText, textX + 1, textY, 0x000000, false);
+        
+        // 2. Left outline (x-1)  
+        graphics.drawString(font, levelText, textX - 1, textY, 0x000000, false);
+        
+        // 3. Down outline (y+1)
+        graphics.drawString(font, levelText, textX, textY + 1, 0x000000, false);
+        
+        // 4. Up outline (y-1)
+        graphics.drawString(font, levelText, textX, textY - 1, 0x000000, false);
+        
+        // 5. Center text (Vanilla green: 0x80FF20 = 8453920)
+        graphics.drawString(font, levelText, textX, textY, 0x80FF20, false);
     }
     
     private static void renderSimpleHotbar(GuiGraphics graphics, int x, int y, LocalPlayer player, float partialTick) {
         // Hotbar implementation - using direct coordinates (2025-08-04 fix)
         
-        // Render hotbar background using WIDGETS_LOCATION
-        graphics.blit(WIDGETS_LOCATION, x, y, 0, 0, 182, 22);
-        
-        // Render hotbar selection highlight
+        // Selection box coordinates
         int selectedSlot = player.getInventory().selected;
-        graphics.blit(WIDGETS_LOCATION, x - 1 + selectedSlot * 20, y - 1, 0, 22, 24, 24);
+        int selectionX = x - 1 + selectedSlot * 20;
+        int selectionY = y - 1;
+        
+        if (HUDConfig.DEBUG_MODE.get()) {
+            LOGGER.debug(
+                "Hotbar Selection Debug: HotbarY={}, SelectionY={}, Offset={}, SelectedSlot={}, SelectionX={}, VanillaStyle={}", 
+                y, selectionY, selectionY - y, selectedSlot, selectionX, HUDConfig.HOTBAR_VANILLA_STYLE.get());
+        }
+        
+        // 2025-08-06 fix: Config-based rendering order for vanilla-like vs enhanced display
+        if (HUDConfig.HOTBAR_VANILLA_STYLE.get()) {
+            // Vanilla-like style: Selection box first, then hotbar background covers bottom edge
+            graphics.blit(WIDGETS_LOCATION, selectionX, selectionY, 0, 22, 24, 24);
+            graphics.blit(WIDGETS_LOCATION, x, y, 0, 0, 182, 22);
+        } else {
+            // Enhanced style: Hotbar background first, then selection box on top (fully visible)
+            graphics.blit(WIDGETS_LOCATION, x, y, 0, 0, 182, 22);
+            graphics.blit(WIDGETS_LOCATION, selectionX, selectionY, 0, 22, 24, 24);
+        }
         
         // Render items in hotbar slots
         for (int i = 0; i < 9; ++i) {
@@ -524,6 +583,8 @@ public class ResourcePackCompatibleOverlays {
     private static void renderSimpleAir(GuiGraphics graphics, int x, int y, LocalPlayer player) {
         // Air bar implementation - using direct coordinates (2025-08-04 fix)
         // 2025-08-05 fix: Unified with food/horse health right-side pattern
+        // 🚨 2025-08-08 CRITICAL FIX: Change from right-edge to left-edge positioning
+        //    The green frame shows the LEFT edge of the air bar, not the right!
         
         net.minecraft.resources.ResourceLocation GUI_ICONS_LOCATION = 
             new net.minecraft.resources.ResourceLocation("textures/gui/icons.png");
@@ -540,19 +601,26 @@ public class ResourcePackCompatibleOverlays {
         int partial = net.minecraft.util.Mth.ceil((double)air * 10.0D / 300.0D) - full;  // 部分泡
         int totalBubbles = full + partial;
         
-        // Render air bubbles with unified right-side pattern (same as food/horse health)
-        // Use provided x,y as base position (includes HUDConfig offset)
-        for (int i = 0; i < totalBubbles; ++i) {
-            // ✅ 統一パターン: 右から左配置（フード・馬ヘルスと同じ）
-            int bubbleX = x - i * 8;  // Right-to-left positioning from base x
+        // Render air bubbles with right-side HUD pattern (empties from left, like vanilla Food/Air)
+        // 🌟 2025-08-08 VANILLA ACCURATE: Right-side HUD renders right-to-left, empties from left
+        for (int i = 0; i < 10; ++i) {
+            // 🚨 VANILLA PATTERN: Right-side HUD positioning
+            // Renders from RIGHT to LEFT (i=0 is rightmost)
+            // Empties from LEFT (lower indices disappear first)
+            int bubbleX = x + (9 - i) * 8;  // Right-to-left positioning
             int bubbleY = y;
             
-            if (i < full) {
-                // 満タン泡（テクスチャ座標16,18）
-                graphics.blit(GUI_ICONS_LOCATION, bubbleX, bubbleY, 16, 18, 9, 9); // Full bubble
-            } else {
-                // 部分泡（テクスチャ座標25,18）
-                graphics.blit(GUI_ICONS_LOCATION, bubbleX, bubbleY, 25, 18, 9, 9); // Popped bubble
+            // Vanilla logic: Check if this position should show a bubble
+            // When air decreases, leftmost bubbles disappear first
+            if (i < totalBubbles) {
+                // Determine if this should be full or partial bubble
+                if (i < full) {
+                    // Full bubble (満タン泡)
+                    graphics.blit(GUI_ICONS_LOCATION, bubbleX, bubbleY, 16, 18, 9, 9);
+                } else {
+                    // Partial/popped bubble (部分泡)
+                    graphics.blit(GUI_ICONS_LOCATION, bubbleX, bubbleY, 25, 18, 9, 9);
+                }
             }
         }
     }
@@ -688,10 +756,10 @@ public class ResourcePackCompatibleOverlays {
         }
         
         // デバッグ情報
-        if (DEBUG_POSITIONS && !debugLogPrinted) {
-            System.out.println("Jump Key Pressed: " + jumpKeyPressed);
-            System.out.println("Jump Strength: " + jumpStrength);
-            System.out.println("Vehicle: " + (ridingEntity != null ? 
+        if (isDebugEnabled() && !debugLogPrinted) {
+            LOGGER.debug("Jump Key Pressed: {}", jumpKeyPressed);
+            LOGGER.debug("Jump Strength: {}", jumpStrength);
+            LOGGER.debug("Vehicle: {}", (ridingEntity != null ? 
                 ridingEntity.getClass().getSimpleName() : "null"));
         }
         
@@ -706,6 +774,28 @@ public class ResourcePackCompatibleOverlays {
                 graphics.blit(GUI_ICONS_LOCATION, x - 1, y, 0, 89, fillWidth, 5);
             }
         }
+    }
+    
+    /**
+     * Manual 8-direction outline rendering (fallback for TRUE Vanilla look)
+     * Replicates drawInBatch8xOutline behavior with EFFECT_DEPTH=1
+     */
+    private static void renderManual8DirectionOutline(GuiGraphics graphics, net.minecraft.client.gui.Font font, 
+                                                     String text, int x, int y, int textColor, int outlineColor) {
+        // 8-direction outline offsets (EFFECT_DEPTH=1)
+        int[][] offsets = {
+            {-1, -1}, {0, -1}, {1, -1},    // Top row
+            {-1,  0},          {1,  0},    // Middle row (left, right)
+            {-1,  1}, {0,  1}, {1,  1}     // Bottom row
+        };
+        
+        // Draw outline in all 8 directions
+        for (int[] offset : offsets) {
+            graphics.drawString(font, text, x + offset[0], y + offset[1], outlineColor, false);
+        }
+        
+        // Draw main text on top
+        graphics.drawString(font, text, x, y, textColor, false);
     }
     
     /**

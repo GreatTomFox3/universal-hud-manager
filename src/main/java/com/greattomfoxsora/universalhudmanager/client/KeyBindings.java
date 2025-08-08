@@ -39,6 +39,8 @@ public class KeyBindings {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             if (TOGGLE_EDIT_MODE.consumeClick()) {
+                org.slf4j.Logger LOGGER = com.mojang.logging.LogUtils.getLogger();
+                LOGGER.info("H key pressed! Calling toggleEditMode...");
                 HUDPositionHandler.toggleEditMode();
             }
         }

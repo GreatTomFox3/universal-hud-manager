@@ -12,6 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
+import com.greattomfoxsora.universalhudmanager.config.HUDConfig;
 
 /**
  * Handles HUD positioning and rendering modifications
@@ -26,6 +27,13 @@ public class HUDPositionHandler {
     
     private static final Logger LOGGER = LogUtils.getLogger();
     private static boolean isEditMode = false;
+    
+    /**
+     * デバッグログが有効かどうかチェック
+     */
+    private static boolean isDebugEnabled() {
+        return HUDConfig.DEBUG_MODE.get();
+    }
     private static HUDElement draggedElement = null;
     private static int dragOffsetX = 0;
     private static int dragOffsetY = 0;
@@ -123,17 +131,26 @@ public class HUDPositionHandler {
     public static void toggleEditMode() {
         Minecraft mc = Minecraft.getInstance();
         
+        LOGGER.info("toggleEditMode called! Current mode: {}", isEditMode ? "ON" : "OFF");
+        
         if (!isEditMode) {
             // 編集モードON - HUD編集スクリーンを開く
             isEditMode = true;
+            // 🌟 HUDConfig.HUD_EDIT_MODE も同期して有効化（Air Bar/Chat表示用）
+            HUDConfig.HUD_EDIT_MODE.set(true);
+            LOGGER.info("Opening HUD Edit Screen... (HUD_EDIT_MODE enabled for Air Bar/Chat visibility)");
             
             // HUD要素を再発見
             HUDRegistry.discoverVanillaHUDs();
             HUDRegistry.discoverModHUDs();
-            LOGGER.info("HUD Registry: {}", HUDRegistry.getStats());
+            if (isDebugEnabled()) {
+                LOGGER.debug("HUD Registry: {}", HUDRegistry.getStats());
+            }
             
             // HUD編集スクリーンを表示
-            mc.setScreen(new HudEditScreen(mc.screen));
+            HudEditScreen editScreen = new HudEditScreen(mc.screen);
+            mc.setScreen(editScreen);
+            LOGGER.info("HudEditScreen created and set as current screen");
             
         } else {
             // 編集モードOFF - スクリーンを閉じる
@@ -143,7 +160,9 @@ public class HUDPositionHandler {
             }
         }
         
-        LOGGER.info("Edit mode: {}", isEditMode ? "ON" : "OFF");
+        if (isDebugEnabled()) {
+            LOGGER.debug("Edit mode: {}", isEditMode ? "ON" : "OFF");
+        }
     }
     
     /**
@@ -151,7 +170,11 @@ public class HUDPositionHandler {
      */
     public static void setEditMode(boolean editMode) {
         isEditMode = editMode;
-        LOGGER.info("Edit mode set to: {}", isEditMode ? "ON" : "OFF");
+        // 🌟 HUDConfig.HUD_EDIT_MODE も同期（Air Bar/Chat表示制御）
+        HUDConfig.HUD_EDIT_MODE.set(editMode);
+        if (isDebugEnabled()) {
+            LOGGER.debug("Edit mode set to: {} (HUDConfig.HUD_EDIT_MODE synchronized)", isEditMode ? "ON" : "OFF");
+        }
     }
     
     /**
@@ -190,7 +213,9 @@ public class HUDPositionHandler {
                 draggedElement = element;
                 dragOffsetX = mouseX - element.getX();
                 dragOffsetY = mouseY - element.getY();
-                LOGGER.info("Started dragging: {}", element.getDisplayName());
+                if (isDebugEnabled()) {
+                    LOGGER.debug("Started dragging: {}", element.getDisplayName());
+                }
                 return true;
             }
         }
@@ -202,10 +227,12 @@ public class HUDPositionHandler {
      */
     public static void handleMouseRelease() {
         if (draggedElement != null) {
-            LOGGER.info("Stopped dragging: {} at ({}, {})", 
-                       draggedElement.getDisplayName(), 
-                       draggedElement.getX(), 
-                       draggedElement.getY());
+            if (isDebugEnabled()) {
+                LOGGER.debug("Stopped dragging: {} at ({}, {})", 
+                           draggedElement.getDisplayName(), 
+                           draggedElement.getX(), 
+                           draggedElement.getY());
+            }
             draggedElement = null;
         }
     }
