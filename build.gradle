@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0'
+version = '0.1.0-alpha'
 group = 'com.greattomfoxsora.universalhudmanager'
 archivesBaseName = 'universalhudmanager'
 
