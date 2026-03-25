@@ -18,6 +18,18 @@ A Minecraft Forge 1.20.1 mod that lets you freely reposition HUD elements (Healt
 
 ---
 
+## ⚠️ Limitations
+
+**UHM can only reposition vanilla Minecraft HUD elements.**
+HUD elements added by other mods (e.g. weapon displays, custom health bars, ability gauges) are drawn independently by those mods and cannot be moved by UHM.
+
+If a mod's HUD is not moving, it is likely drawn by that mod itself — not by vanilla Minecraft.
+Each mod requires individual compatibility work to support repositioning.
+
+Currently confirmed compatible mods are listed in the [Mod Compatibility](#mod-compatibility) section below.
+
+---
+
 ## Mod Compatibility
 
 ### TACZ (Timeless and Classics Zero)
