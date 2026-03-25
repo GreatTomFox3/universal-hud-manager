@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="universalhudmanager"
+version="${file.jarVersion}"
+displayName="Universal HUD Manager"
+description='''
+A simple mod that allows you to freely position Health and Armor HUD elements.
+Clean rebuild focusing on core functionality with armor HUD proven methods.
+Created by GreatTomFox & Sora collaboration project.
+'''
+credits="Created by GreatTomFox & Sora (AI Assistant)"
+authors="GreatTomFox, Sora"
+
+[[dependencies.universalhudmanager]]
+modId="forge"
+mandatory=true
+versionRange="[47.4.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.universalhudmanager]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,30 @@
+# Build outputs
+build/
+bin/
+run/
+
+# Gradle
+.gradle/
+gradlew.bat
+
+# IDE
+.idea/
+.vscode/
+*.launch
+*.iml
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Forge dev artifacts
+forge-*.zip
+forge-*.jar
+
+# 作業メモ（GitHub非公開）
+copy_files.ps1
+*.md
+!README.md
