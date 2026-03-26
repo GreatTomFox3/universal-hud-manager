@@ -84,12 +84,16 @@ public class ConfigScreen extends Screen {
     );
 
     private static final List<SettingEntry> DISPLAY_ENTRIES = List.of(
-        new SettingEntry("armor_empty",  LANG_PREFIX + "armor_empty",  HUDConfig.ARMOR_EMPTY_DISPLAY,          true,  LANG_PREFIX + "armor_empty.tooltip"),
-        new SettingEntry("food_dir",     LANG_PREFIX + "food_dir",     HUDConfig.FOOD_DECREASE_LEFT_TO_RIGHT,  false, LANG_PREFIX + "food_dir.tooltip"),
-        new SettingEntry("health_flash", LANG_PREFIX + "health_flash", HUDConfig.HEALTH_FLASH_ON_RECOVERY,     true,  LANG_PREFIX + "health_flash.tooltip"),
-        new SettingEntry("health_wave",  LANG_PREFIX + "health_wave",  HUDConfig.HEALTH_WHITE_WAVE_ANIMATION,  false, LANG_PREFIX + "health_wave.tooltip"),
-        new SettingEntry("sep_vehicle",  LANG_PREFIX + "sep_vehicle",  HUDConfig.SEPARATE_VEHICLE_HEALTH,      false, LANG_PREFIX + "sep_vehicle.tooltip"),
-        new SettingEntry("sep_jump",     LANG_PREFIX + "sep_jump",     HUDConfig.SEPARATE_JUMP_METER,          false, LANG_PREFIX + "sep_jump.tooltip")
+        new SettingEntry("armor_empty",      LANG_PREFIX + "armor_empty",      HUDConfig.ARMOR_EMPTY_DISPLAY,          true,  LANG_PREFIX + "armor_empty.tooltip"),
+        new SettingEntry("food_dir",         LANG_PREFIX + "food_dir",         HUDConfig.FOOD_DECREASE_LEFT_TO_RIGHT,  false, LANG_PREFIX + "food_dir.tooltip"),
+        new SettingEntry("health_flash",     LANG_PREFIX + "health_flash",     HUDConfig.HEALTH_FLASH_ON_RECOVERY,     true,  LANG_PREFIX + "health_flash.tooltip"),
+        new SettingEntry("health_wave",      LANG_PREFIX + "health_wave",      HUDConfig.HEALTH_WHITE_WAVE_ANIMATION,  false, LANG_PREFIX + "health_wave.tooltip"),
+        new SettingEntry("sep_vehicle",      LANG_PREFIX + "sep_vehicle",      HUDConfig.SEPARATE_VEHICLE_HEALTH,      false, LANG_PREFIX + "sep_vehicle.tooltip"),
+        new SettingEntry("sep_jump",         LANG_PREFIX + "sep_jump",         HUDConfig.SEPARATE_JUMP_METER,          false, LANG_PREFIX + "sep_jump.tooltip"),
+        new SettingEntry("as_saturation",    LANG_PREFIX + "as_saturation",    HUDConfig.APPLESKIN_SATURATION,         true,  LANG_PREFIX + "as_saturation.tooltip"),
+        new SettingEntry("as_exhaustion",    LANG_PREFIX + "as_exhaustion",    HUDConfig.APPLESKIN_EXHAUSTION,         true,  LANG_PREFIX + "as_exhaustion.tooltip"),
+        new SettingEntry("as_hunger",        LANG_PREFIX + "as_hunger",        HUDConfig.APPLESKIN_HUNGER_RESTORED,    true,  LANG_PREFIX + "as_hunger.tooltip"),
+        new SettingEntry("as_health",        LANG_PREFIX + "as_health",        HUDConfig.APPLESKIN_HEALTH_RESTORED,    true,  LANG_PREFIX + "as_health.tooltip")
     );
 
     private static final List<SettingEntry> GENERAL_ENTRIES = List.of(
