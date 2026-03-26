@@ -11,8 +11,8 @@ A simple mod that allows you to freely position Health and Armor HUD elements.
 Clean rebuild focusing on core functionality with armor HUD proven methods.
 Created by GreatTomFox & Sora collaboration project.
 '''
-credits="Created by GreatTomFox & Sora (AI Assistant)"
-authors="GreatTomFox, Sora"
+credits="Created by GreatTomFox & Sola (AI Assistant)"
+authors="GreatTomFox, Sola"
 
 [[dependencies.universalhudmanager]]
 modId="forge"

@@ -2,7 +2,7 @@
 
 A Minecraft Forge 1.20.1 mod that lets you freely reposition HUD elements (Health, Food, Armor, XP, etc.) via config file, with a visual editor screen.
 
-**Created by GreatTomFox & Sora (AI Assistant)**
+**Created by GreatTomFox & Sola (AI Assistant)**
 
 ---
 
